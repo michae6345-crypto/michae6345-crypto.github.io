@@ -1,0 +1,12 @@
+# Authoring leftovers — not part of the published site.
+# The bundle artifact still contains removed entries (cumulus labs, todd),
+# so it must never be served.
+Michael Portfolio - Projects.html
+projects-standalone.html
+tweaks-panel.jsx
+.thumbnail
+
+# OS noise
+Thumbs.db
+desktop.ini
+.DS_Store
