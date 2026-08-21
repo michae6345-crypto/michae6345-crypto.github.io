@@ -126,12 +126,31 @@ footer.page-footer {
   color: inherit;
   transition: opacity 0.2s ease, padding-left 0.2s ease;
 }
+/* Hover marks the row with a rounded vertical bar on the left rather than
+   dimming it. Fading reads as "disabled", the opposite of the affordance
+   wanted here. The bar lives in main's left padding so nothing reflows;
+   it grows from the centre and has fully round ends. */
+.proj-item.link-item { position: relative; }
+.proj-item.link-item::before {
+  content: '';
+  position: absolute;
+  left: -0.95rem;
+  top: 1.15rem;
+  bottom: 1.15rem;
+  width: 3px;
+  border-radius: 999px;
+  background: #1a1a1a;
+  transform: scaleY(0);
+  transform-origin: center;
+  opacity: 0;
+  transition: transform 0.24s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.18s ease;
+}
+.proj-item.link-item:hover::before,
+.proj-item.link-item:focus-visible::before {
+  transform: scaleY(1);
+  opacity: 1;
+}
 .proj-item.link-item:hover { padding-left: 0.4rem; }
-/* Underline the title on hover rather than fading the row out — dimming
-   reads as 'disabled', the opposite of the affordance wanted here. */
-.proj-item.link-item:hover .title { border-bottom: 1px solid #1a1a1a; }
-.proj-item .title { border-bottom: 1px solid transparent; padding-bottom: 2px;
-  transition: border-color 0.2s ease; }
 
 /* ---------- Social row (connect page) ---------- */
 .social-row {
@@ -247,4 +266,47 @@ main.intro p.muted {
 @media (max-width: 600px) {
   main.intro { padding-top: 3rem; }
   main.intro p { font-size: 1.25rem; }
+}
+
+
+/* ---------- Decorative hanging wires ---------- */
+/* Anchored midway between the page centre and the right edge (75% of the
+   viewport). Sits behind content and never takes pointer events. */
+.wires {
+  position: fixed;
+  top: 0;
+  left: 75%;
+  transform: translateX(-50%);
+  z-index: 0;
+  pointer-events: none;
+  line-height: 0;
+}
+/* Content sits above the wires. */
+nav.top-nav, main, footer.page-footer { position: relative; z-index: 1; }
+
+/* Sway pivots from the top anchor, like a cable hanging off a screen edge.
+   Per-wire duration and negative delay keep the three from moving in
+   lockstep. */
+.wires .wire {
+  transform-origin: 50% 0;
+  animation: wire-sway var(--dur, 7s) ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes wire-sway {
+  0%, 100% { transform: rotate(-0.7deg); }
+  50%      { transform: rotate(0.7deg); }
+}
+
+/* Narrow screens: the wires would cross the text column, so drop them. */
+@media (max-width: 900px) {
+  .wires { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wires .wire { animation: none; }
+}
+
+/* The nav label is longer now ("projs & experience"); tighten tracking on
+   narrow screens so the row still fits on one line. */
+@media (max-width: 520px) {
+  nav.top-nav { font-size: 0.75rem; letter-spacing: 0.08em; gap: 0.6rem; }
 }
