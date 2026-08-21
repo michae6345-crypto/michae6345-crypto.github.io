@@ -246,10 +246,9 @@
   ];
 
   let triggered = false;
-  link.addEventListener('click', function(e) {
+  function enterSite() {
     if (triggered) return;
     triggered = true;
-    e.preventDefault();
 
     const r = bezel.getBoundingClientRect();
     overlay.style.setProperty('--ox', (r.left + r.width / 2) + 'px');
@@ -274,6 +273,21 @@
         }, 350);
       }
     }, 16);
+  }
+
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    enterSite();
+  });
+
+  // Pressing Enter anywhere runs the same transition, so the page works
+  // without a pointer. When the link itself has focus the browser also
+  // synthesizes a click; the `triggered` guard makes that a no-op rather
+  // than starting the animation twice.
+  document.addEventListener('keydown', function(e) {
+    if (e.key !== 'Enter' || e.ctrlKey || e.metaKey || e.altKey) return;
+    e.preventDefault();
+    enterSite();
   });
 })();
 </script>
