@@ -74,7 +74,7 @@ a.link {
   border-bottom: 1px solid #1a1a1a;
   padding-bottom: 1px;
 }
-a.link:hover { color: #666; border-color: #666; }
+a.link:hover { color: #1a1a1a; border-bottom-width: 2px; }
 
 /* ---------- Projects list ---------- */
 .proj-list {
@@ -126,7 +126,12 @@ footer.page-footer {
   color: inherit;
   transition: opacity 0.2s ease, padding-left 0.2s ease;
 }
-.proj-item.link-item:hover { opacity: 0.6; padding-left: 0.4rem; }
+.proj-item.link-item:hover { padding-left: 0.4rem; }
+/* Underline the title on hover rather than fading the row out — dimming
+   reads as 'disabled', the opposite of the affordance wanted here. */
+.proj-item.link-item:hover .title { border-bottom: 1px solid #1a1a1a; }
+.proj-item .title { border-bottom: 1px solid transparent; padding-bottom: 2px;
+  transition: border-color 0.2s ease; }
 
 /* ---------- Social row (connect page) ---------- */
 .social-row {
@@ -218,3 +223,28 @@ footer.page-footer {
    markup change. */
 .detail-images .frame:not(:has(image-slot[data-filled])) { display: none; }
 .detail-images:not(:has(image-slot[data-filled])) { display: none; }
+
+
+/* ---------- Landing / about page ---------- */
+/* main centres its content vertically by default, which pushes the intro
+   to the middle of the viewport. The landing copy should sit high and
+   read large, so this overrides both. */
+main.intro {
+  justify-content: flex-start;
+  padding-top: 4.5rem;
+  max-width: 680px;
+  gap: 1.25rem;
+}
+main.intro p {
+  font-size: 1.6rem;
+  line-height: 1.7;
+  color: #1a1a1a;
+}
+main.intro p.muted {
+  font-size: 1rem;
+  color: #999;
+}
+@media (max-width: 600px) {
+  main.intro { padding-top: 3rem; }
+  main.intro p { font-size: 1.25rem; }
+}
