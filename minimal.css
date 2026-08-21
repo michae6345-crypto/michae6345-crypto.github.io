@@ -25,7 +25,7 @@ nav.top-nav {
   text-transform: lowercase;
 }
 nav.top-nav a {
-  color: #999;
+  color: #1a1a1a;
   text-decoration: none;
   padding-bottom: 3px;
   border-bottom: 1px solid transparent;
@@ -34,9 +34,10 @@ nav.top-nav a {
 nav.top-nav a:hover { color: #1a1a1a; }
 nav.top-nav a.active {
   color: #1a1a1a;
+  font-weight: 700;
   border-bottom-color: #1a1a1a;
 }
-nav.top-nav .dot { color: #ccc; }
+nav.top-nav .dot { color: #1a1a1a; }
 
 /* ---------- Page content ---------- */
 main {
@@ -56,7 +57,8 @@ main .eyebrow {
   font-size: 0.75rem;
   letter-spacing: 0.25em;
   text-transform: lowercase;
-  color: #aaa;
+  color: #1a1a1a;
+  font-weight: 700;
 }
 
 main p {
@@ -66,7 +68,7 @@ main p {
   text-wrap: pretty;
 }
 
-main p.muted { color: #999; font-size: 0.9rem; }
+main p.muted { color: #1a1a1a; font-size: 0.9rem; }
 
 a.link {
   color: #1a1a1a;
@@ -93,9 +95,9 @@ a.link:hover { color: #1a1a1a; border-bottom-width: 2px; }
 }
 .proj-item:first-child { border-top: 1px solid #eaeaea; }
 .proj-item .meta { display: flex; flex-direction: column; gap: 0.35rem; }
-.proj-item .title { font-size: 1rem; color: #1a1a1a; }
-.proj-item .desc { font-size: 0.85rem; color: #999; }
-.proj-item .yr { font-size: 0.8rem; color: #bbb; white-space: nowrap; }
+.proj-item .title { font-size: 1rem; color: #1a1a1a; font-weight: 700; }
+.proj-item .desc { font-size: 0.85rem; color: #1a1a1a; }
+.proj-item .yr { font-size: 0.8rem; color: #1a1a1a; white-space: nowrap; }
 
 .section-gap { margin-top: 1rem; }
 .connect-list {
@@ -117,7 +119,7 @@ footer.page-footer {
   font-size: 0.7rem;
   letter-spacing: 0.1em;
   text-transform: lowercase;
-  color: #ccc;
+  color: #1a1a1a;
 }
 
 /* ---------- Project list as links ---------- */
@@ -184,7 +186,7 @@ footer.page-footer {
   align-self: flex-start;
   font-size: 0.8rem;
   letter-spacing: 0.1em;
-  color: #999;
+  color: #1a1a1a;
   text-decoration: none;
   margin-bottom: 0.5rem;
 }
@@ -230,7 +232,7 @@ footer.page-footer {
   gap: 0.75rem;
   font-size: 0.75rem;
   letter-spacing: 0.1em;
-  color: #aaa;
+  color: #1a1a1a;
   text-transform: lowercase;
 }
 
@@ -261,7 +263,7 @@ main.intro p {
 }
 main.intro p.muted {
   font-size: 1rem;
-  color: #999;
+  color: #1a1a1a;
 }
 @media (max-width: 600px) {
   main.intro { padding-top: 3rem; }
