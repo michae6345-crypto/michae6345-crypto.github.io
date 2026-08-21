@@ -46,6 +46,58 @@
 
     wrap.innerHTML = svg;
     document.body.insertBefore(wrap, document.body.firstChild);
+    retractOnScroll(wrap);
+  }
+
+  /* Wires reel in as the page scrolls, as though pulled up over the top
+   * edge. Each path is trimmed with stroke-dasharray: the visible run is
+   * the first (1 - progress) of its length, so the free end travels
+   * upward while the anchored top stays put. The weighted tip is moved to
+   * the new endpoint via getPointAtLength so it always sits on the wire.
+   *
+   * Scroll events fire far more often than frames, so the handler only
+   * flags dirty and the real work happens once per rAF.
+   */
+  function retractOnScroll(wrap) {
+    var groups = [].slice.call(wrap.querySelectorAll('.wire')).map(function (g) {
+      var path = g.querySelector('path');
+      return { path: path, tip: g.querySelector('circle'), len: path.getTotalLength() };
+    });
+    if (!groups.length) return;
+
+    var ticking = false;
+    var lastP = -1;
+
+    function apply() {
+      ticking = false;
+      // Fully retracted after 70% of a viewport height of scrolling.
+      var span = Math.max(1, window.innerHeight * 0.7);
+      var p = Math.min(1, Math.max(0, window.pageYOffset / span));
+      if (p === lastP) return;
+      lastP = p;
+
+      groups.forEach(function (g) {
+        var shown = g.len * (1 - p);
+        // Second value pads the gap so the remainder never redraws.
+        g.path.setAttribute('stroke-dasharray', shown + ' ' + (g.len + 1));
+        var pt = g.path.getPointAtLength(shown);
+        g.tip.setAttribute('cx', pt.x);
+        g.tip.setAttribute('cy', pt.y);
+        // Hide the bead once the wire is essentially gone, so a dot is
+        // not left stranded at the anchor.
+        g.tip.style.opacity = shown < 4 ? 0 : 1;
+      });
+    }
+
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(apply);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    apply(); // honour a restored scroll position on load
   }
 
   if (document.readyState === 'loading') {
