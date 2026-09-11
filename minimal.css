@@ -398,27 +398,6 @@ main.intro p.muted {
   text-align: left;
 }
 
-/* "accepted" badge. Carries the verb once per card so the titles below stay
-   short instead of repeating "accepted to" on every line. */
-.award-badge {
-  font-size: 0.62rem;
-  letter-spacing: 0.18em;
-  text-transform: lowercase;
-  font-weight: 700;
-  color: var(--ink);
-  padding: 0.3rem 0.7rem;
-  border: 1px solid var(--hairline-strong);
-  border-radius: var(--radius-chip);
-  background: var(--surface);
-}
-
-.award-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  width: 100%;
-}
 .award-title {
   font-size: 1rem;
   font-weight: 700;
@@ -426,15 +405,13 @@ main.intro p.muted {
   line-height: 1.45;
   text-wrap: pretty;
 }
+/* Sits above the title as a small label rather than opposite it, so a long
+   title never has to share its line. */
 .award-yr {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
   color: var(--ink-soft);
   white-space: nowrap;
-}
-.award-note {
-  font-size: 0.85rem;
-  color: var(--ink-soft);
-  line-height: 1.6;
 }
 
 /* The fly-in programs card holds five entries. They are one award, so they
