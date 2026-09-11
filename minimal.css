@@ -61,6 +61,7 @@ nav.top-nav {
      screens instead of overflowing. */
   flex-wrap: wrap;
   justify-content: center;
+  width: 100%;
   gap: 0.7rem 0.9rem;
   font-size: 0.85rem;
   letter-spacing: 0.15em;
@@ -361,7 +362,13 @@ main.intro p.muted {
 /* The nav label is longer now ("projs & experience"); tighten tracking on
    narrow screens so the row still fits on one line. */
 @media (max-width: 520px) {
-  nav.top-nav { font-size: 0.75rem; letter-spacing: 0.08em; gap: 0.55rem 1.1rem; }
+  nav.top-nav {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    gap: 0.55rem 1.1rem;
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+  }
   /* With four tabs the row wraps here, which leaves a dot dangling at the end
      of the first line. Drop the separators and let the gap do that work. */
   nav.top-nav .dot { display: none; }
@@ -405,11 +412,11 @@ main.intro p.muted {
   background: var(--surface);
 }
 
-.award-head {
+.award-top {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 1rem;
   width: 100%;
 }
 .award-title {
@@ -417,6 +424,7 @@ main.intro p.muted {
   font-weight: 700;
   color: var(--ink);
   line-height: 1.45;
+  text-wrap: pretty;
 }
 .award-yr {
   font-size: 0.8rem;
@@ -455,8 +463,9 @@ main.intro p.muted {
     align-items: flex-start;
     gap: 0.5rem;
   }
-  .award-head { flex-direction: column; gap: 0.35rem; }
-  .award-tags li { white-space: normal; }
+  .award-card { padding: 1.15rem 1.2rem; gap: 0.6rem; }
+  .award-tags { gap: 0.4rem; }
+  .award-tags li { white-space: normal; font-size: 0.75rem; padding: 0.4rem 0.75rem; }
 }
 
 /* The hover lift is motion; skip it when motion is unwelcome. */
