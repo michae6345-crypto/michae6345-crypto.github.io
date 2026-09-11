@@ -12,6 +12,7 @@ one script. Deployed to GitHub Pages from `main`.
 | `index.html` | Landing page ("[ enter ]" animation) |
 | `home.html` | About |
 | `projects.html` | Experience + projects index |
+| `awards.html` | Awards + fly-in programs |
 | `connect.html` | Email + social links |
 | `project-{1,2,3,5,6,8}.html` | Detail pages |
 | `minimal.css` | Shared stylesheet |

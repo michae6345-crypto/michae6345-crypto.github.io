@@ -29,6 +29,21 @@ html, body {
   color: #1a1a1a;
 }
 
+/* The layout is centred, so a scrollbar that appears on a long page and not
+   on a short one shifts the whole column sideways -- the site visibly changes
+   width as you move between tabs. Hiding it keeps the column in one place on
+   every page. Scrolling is unaffected: wheel, trackpad, keyboard and touch
+   all still work, only the bar itself is not painted. */
+html {
+  scrollbar-width: none;     /* firefox */
+  -ms-overflow-style: none;  /* legacy edge */
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {    /* chrome, safari, edge */
+  width: 0;
+  height: 0;
+}
+
 body {
   font-family: 'Space Mono', monospace;
   display: flex;
@@ -39,10 +54,14 @@ body {
 
 /* ---------- Nav ---------- */
 nav.top-nav {
-  padding: 3rem 0 0;
+  padding: 3rem 1.25rem 0;
   display: flex;
   align-items: center;
-  gap: 0.9rem;
+  /* Four tabs rather than three: wrap to a second centred line on narrow
+     screens instead of overflowing. */
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.7rem 0.9rem;
   font-size: 0.85rem;
   letter-spacing: 0.15em;
   text-transform: lowercase;
@@ -342,7 +361,10 @@ main.intro p.muted {
 /* The nav label is longer now ("projs & experience"); tighten tracking on
    narrow screens so the row still fits on one line. */
 @media (max-width: 520px) {
-  nav.top-nav { font-size: 0.75rem; letter-spacing: 0.08em; gap: 0.6rem; }
+  nav.top-nav { font-size: 0.75rem; letter-spacing: 0.08em; gap: 0.55rem 1.1rem; }
+  /* With four tabs the row wraps here, which leaves a dot dangling at the end
+     of the first line. Drop the separators and let the gap do that work. */
+  nav.top-nav .dot { display: none; }
 }
 
 
