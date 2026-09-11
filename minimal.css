@@ -339,42 +339,6 @@ main.intro p.muted {
 }
 
 
-/* ---------- Decorative hanging wires ---------- */
-/* Anchored midway between the page centre and the right edge (75% of the
-   viewport). Sits behind content and never takes pointer events. */
-.wires {
-  position: fixed;
-  top: 0;
-  left: 75%;
-  transform: translateX(-50%);
-  z-index: 0;
-  pointer-events: none;
-  line-height: 0;
-}
-/* Content sits above the wires. */
-nav.top-nav, main, footer.page-footer { position: relative; z-index: 1; }
-
-/* Sway pivots from the top anchor, like a cable hanging off a screen edge.
-   Per-wire duration and negative delay keep the three from moving in
-   lockstep. */
-.wires .wire {
-  transform-origin: 50% 0;
-  animation: wire-sway var(--dur, 7s) ease-in-out var(--delay, 0s) infinite;
-}
-@keyframes wire-sway {
-  0%, 100% { transform: rotate(-0.7deg); }
-  50%      { transform: rotate(0.7deg); }
-}
-
-/* Narrow screens: the wires would cross the text column, so drop them. */
-@media (max-width: 900px) {
-  .wires { display: none; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .wires .wire { animation: none; }
-}
-
 /* The nav label is longer now ("projs & experience"); tighten tracking on
    narrow screens so the row still fits on one line. */
 @media (max-width: 520px) {
@@ -473,7 +437,7 @@ nav.top-nav, main, footer.page-footer { position: relative; z-index: 1; }
   .award-tags li { white-space: normal; }
 }
 
-/* The hover lift is motion; honour the same preference the wires do. */
+/* The hover lift is motion; skip it when motion is unwelcome. */
 @media (prefers-reduced-motion: reduce) {
   .proj-item.link-item,
   .proj-item.link-item::before { transition: none; }
