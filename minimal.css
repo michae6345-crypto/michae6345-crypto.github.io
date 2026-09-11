@@ -21,6 +21,7 @@
 
   --lift: 0 1px 2px rgba(0, 0, 0, 0.04), 0 10px 26px rgba(0, 0, 0, 0.06);
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
 }
 
 html, body {
@@ -37,12 +38,13 @@ html, body {
 html {
   scrollbar-width: none;     /* firefox */
   -ms-overflow-style: none;  /* legacy edge */
-  scroll-behavior: smooth;
-  /* Anchor targets stop below the sticky nav rather than under it. */
+  /* Anchor targets stop below the sticky nav rather than under it. This also
+     covers keyboard focus moving behind the nav when tabbing backwards, which
+     scroll-margin-top does not reliably do. */
   scroll-padding-top: 4.5rem;
 }
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
 }
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {    /* chrome, safari, edge */
@@ -69,10 +71,10 @@ nav.top-nav {
   z-index: 20;
   padding: 1.05rem 1.25rem;
   background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: saturate(180%) blur(14px);
-  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  backdrop-filter: saturate(180%) blur(10px);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
   border-bottom: 1px solid transparent;
-  transition: border-color 0.25s ease, background 0.25s ease;
+  transition: border-color 0.2s var(--ease-out), background-color 0.2s var(--ease-out);
   display: flex;
   align-items: center;
   /* Four tabs rather than three: wrap to a second centred line on narrow
@@ -85,7 +87,14 @@ nav.top-nav {
   letter-spacing: 0.15em;
   text-transform: lowercase;
 }
-nav.top-nav.is-stuck { border-bottom-color: var(--hairline); }
+nav.top-nav.is-stuck {
+  border-bottom-color: var(--hairline);
+  background: rgba(255, 255, 255, 0.85);
+}
+/* Without backdrop-filter the translucency would just look washed out. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  nav.top-nav { background: #ffffff; }
+}
 
 nav.top-nav a {
   color: #1a1a1a;
@@ -360,7 +369,7 @@ main.page {
   width: 100%;
   max-width: 560px;
   margin: 0 auto;
-  padding: 5.5rem 2rem;
+  padding: 6rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -376,7 +385,7 @@ main.page {
 /* The intro holds the first screen, so it is taller and reads larger. */
 .section-intro {
   max-width: 680px;
-  min-height: calc(100vh - 4.5rem);
+  min-height: clamp(420px, 72svh, 720px);
   padding-top: 3rem;
   gap: 1.25rem;
 }
@@ -390,8 +399,8 @@ main.page {
   color: #1a1a1a;
 }
 @media (max-width: 600px) {
-  .section { padding: 4rem 1.5rem; }
-  .section-intro { padding-top: 2rem; min-height: calc(100svh - 4.5rem); }
+  .section { padding: 4.5rem 1.5rem; }
+  .section-intro { padding-top: 2rem; }
   .section-intro p { font-size: 1.25rem; }
 }
 
@@ -496,16 +505,19 @@ main.page {
    small: a long travel reads as a slideshow, a short one reads as the page
    settling. scroll.js adds .is-in; if it never runs, the unstyled state is
    the visible one, so the page still reads with JS off. */
+/* Starting at 0.001 rather than 0 keeps the element painted, so the first
+   animated frame has nothing to warm up and cannot flash. */
 .reveal {
-  opacity: 0;
+  opacity: 0.001;
   transform: translateY(12px);
-  transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
+  transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
   transition-delay: var(--reveal-delay, 0s);
   will-change: opacity, transform;
 }
 .reveal.is-in {
   opacity: 1;
   transform: none;
+  will-change: auto;
 }
 /* No JS, no observer support: show everything rather than a blank page. */
 .no-js .reveal,
@@ -550,4 +562,21 @@ html:not(.js) .reveal {
 }
 .skip-link:focus {
   transform: translate(-50%, 0.5rem);
+}
+
+
+/* ---------- Visually hidden ---------- */
+/* Present for screen readers and search results, absent from the layout. The
+   one-page site has a single h1 that the visual design has no room for. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }

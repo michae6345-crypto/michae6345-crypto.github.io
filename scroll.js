@@ -26,7 +26,7 @@
     function (section) {
       Array.prototype.forEach.call(section.children, function (child, i) {
         child.classList.add('reveal');
-        child.style.setProperty('--reveal-delay', (i * 0.07) + 's');
+        child.style.setProperty('--reveal-delay', (Math.min(i, 4) * 0.06) + 's');
         targets.push(child);
       });
     }
@@ -45,8 +45,8 @@
     }, {
       // Fire a little before the element reaches the fold so it is already
       // settling by the time it is properly in view.
-      rootMargin: '0px 0px -12% 0px',
-      threshold: 0.05
+      rootMargin: '0px 0px -10% 0px',
+      threshold: 0
     });
     targets.forEach(function (el) { revealObserver.observe(el); });
   }
@@ -61,7 +61,12 @@
 
   function setActive(id) {
     links.forEach(function (a) {
-      a.classList.toggle('active', a.hash === '#' + id);
+      var on = a.hash === '#' + id;
+      a.classList.toggle('active', on);
+      // The active tab is the only orientation cue left now that there are no
+      // per-page titles, so expose it to assistive tech, not just visually.
+      if (on) a.setAttribute('aria-current', 'true');
+      else a.removeAttribute('aria-current');
     });
   }
 
