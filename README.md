@@ -9,11 +9,9 @@ one script. Deployed to GitHub Pages from `main`.
 
 | File | Purpose |
 |---|---|
-| `index.html` | Landing page ("[ enter ]" animation) |
-| `home.html` | About |
-| `projects.html` | Experience + projects index |
-| `awards.html` | Awards + fly-in programs |
-| `connect.html` | Email + social links |
+| `index.html` | The whole site: about / work / awards / connect as one scroll |
+| `scroll.js` | Scroll reveal, nav scroll-spy, sticky-nav state |
+| `home.html`, `projects.html`, `awards.html`, `connect.html` | Redirect stubs to the matching `index.html#anchor`, so previously shared links still resolve |
 | `project-{1,2,3,5,6,8}.html` | Detail pages |
 | `minimal.css` | Shared stylesheet |
 | `image-slot.js` | `<image-slot>` custom element for project images |

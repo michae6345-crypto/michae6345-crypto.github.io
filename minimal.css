@@ -37,6 +37,12 @@ html, body {
 html {
   scrollbar-width: none;     /* firefox */
   -ms-overflow-style: none;  /* legacy edge */
+  scroll-behavior: smooth;
+  /* Anchor targets stop below the sticky nav rather than under it. */
+  scroll-padding-top: 4.5rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {    /* chrome, safari, edge */
@@ -53,8 +59,20 @@ body {
 }
 
 /* ---------- Nav ---------- */
+/* The nav stays with you down the page now that the site is one scroll. It
+   sits on a translucent blurred ground so content passing underneath stays
+   faintly visible instead of hard-clipping against a solid bar, and it only
+   grows its bottom hairline once you have scrolled off the top. */
 nav.top-nav {
-  padding: 3rem 1.25rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  padding: 1.05rem 1.25rem;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.25s ease, background 0.25s ease;
   display: flex;
   align-items: center;
   /* Four tabs rather than three: wrap to a second centred line on narrow
@@ -67,6 +85,8 @@ nav.top-nav {
   letter-spacing: 0.15em;
   text-transform: lowercase;
 }
+nav.top-nav.is-stuck { border-bottom-color: var(--hairline); }
+
 nav.top-nav a {
   color: #1a1a1a;
   text-decoration: none;
@@ -94,14 +114,6 @@ main {
   justify-content: center;
   text-align: center;
   gap: 1.75rem;
-}
-
-/* main centres its content vertically, which is right for the short pages but
-   leaves a large dead gap above a long one. Content-heavy pages start at the
-   top instead. */
-main.stacked {
-  justify-content: flex-start;
-  padding-top: 3.5rem;
 }
 
 main .eyebrow {
@@ -334,28 +346,53 @@ footer.page-footer {
 .detail-images:not(:has(image-slot[data-filled])) { display: none; }
 
 
-/* ---------- Landing / about page ---------- */
-/* main centres its content vertically by default, which pushes the intro
-   to the middle of the viewport. The landing copy should sit high and
-   read large, so this overrides both. */
-main.intro {
+/* ---------- One-page sections ---------- */
+/* The four tabs are sections of a single scroll now. main itself stops being
+   the centred text column -- each section is -- so it drops its own width,
+   padding and centring and just stacks them. */
+main.page {
+  max-width: none;
+  padding: 0;
   justify-content: flex-start;
-  padding-top: 4.5rem;
+  gap: 0;
+}
+.section {
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 5.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1.75rem;
+  /* Belt and braces with scroll-padding-top for browsers that honour one and
+     not the other. */
+  scroll-margin-top: 4.5rem;
+}
+.section:focus { outline: none; }
+
+/* The intro holds the first screen, so it is taller and reads larger. */
+.section-intro {
   max-width: 680px;
+  min-height: calc(100vh - 4.5rem);
+  padding-top: 3rem;
   gap: 1.25rem;
 }
-main.intro p {
+.section-intro p {
   font-size: 1.6rem;
   line-height: 1.7;
   color: #1a1a1a;
 }
-main.intro p.muted {
+.section-intro p.muted {
   font-size: 1rem;
   color: #1a1a1a;
 }
 @media (max-width: 600px) {
-  main.intro { padding-top: 3rem; }
-  main.intro p { font-size: 1.25rem; }
+  .section { padding: 4rem 1.5rem; }
+  .section-intro { padding-top: 2rem; min-height: calc(100svh - 4.5rem); }
+  .section-intro p { font-size: 1.25rem; }
 }
 
 
@@ -451,4 +488,66 @@ main.intro p.muted {
   .proj-item.link-item::before { transition: none; }
   .proj-item.link-item:hover,
   .proj-item.link-item:focus-visible { transform: none; }
+}
+
+
+/* ---------- Scroll reveal ---------- */
+/* Elements lift in as they enter the viewport. The distance is deliberately
+   small: a long travel reads as a slideshow, a short one reads as the page
+   settling. scroll.js adds .is-in; if it never runs, the unstyled state is
+   the visible one, so the page still reads with JS off. */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
+  transition-delay: var(--reveal-delay, 0s);
+  will-change: opacity, transform;
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+/* No JS, no observer support: show everything rather than a blank page. */
+.no-js .reveal,
+html:not(.js) .reveal {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------- Section separators ---------- */
+/* A hairline between sections gives the scroll a sense of chapters without
+   boxing anything in. The first section has nothing above it to divide. */
+.section + .section {
+  border-top: 1px solid var(--hairline);
+}
+
+/* ---------- Skip link ---------- */
+/* One-page anchor nav means keyboard users would otherwise tab the whole nav
+   before reaching content. Visually hidden until focused. */
+.skip-link {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -120%);
+  z-index: 30;
+  padding: 0.6rem 1.1rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-chip);
+  text-decoration: none;
+  transition: transform 0.2s var(--ease);
+}
+.skip-link:focus {
+  transform: translate(-50%, 0.5rem);
 }

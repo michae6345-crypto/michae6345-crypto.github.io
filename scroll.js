@@ -1,0 +1,133 @@
+/* One-page scroll behaviour: section reveal, nav scroll-spy, sticky nav state.
+ *
+ * Everything here is progressive enhancement. The page is fully readable
+ * without it -- the .reveal rules only hide content once this file has marked
+ * the document as script-capable, so a failure to load leaves the page
+ * visible rather than blank.
+ */
+(function () {
+  'use strict';
+
+  var root = document.documentElement;
+  var reduced = window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Marks the document as script-capable. Until this runs the .reveal opacity
+  // rules are overridden by the html:not(.js) fallback, so no-JS visitors see
+  // the content rather than an empty column.
+  root.classList.add('js');
+
+  /* ---------- Reveal on entry ------------------------------------- */
+  // Direct children of each section animate in, staggered slightly so a
+  // section arrives as a sequence rather than a single block.
+  var targets = [];
+  Array.prototype.forEach.call(
+    document.querySelectorAll('.section'),
+    function (section) {
+      Array.prototype.forEach.call(section.children, function (child, i) {
+        child.classList.add('reveal');
+        child.style.setProperty('--reveal-delay', (i * 0.07) + 's');
+        targets.push(child);
+      });
+    }
+  );
+
+  if (reduced || !('IntersectionObserver' in window)) {
+    // Nothing to animate: show everything immediately.
+    targets.forEach(function (el) { el.classList.add('is-in'); });
+  } else {
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        revealObserver.unobserve(entry.target);  // one-shot
+      });
+    }, {
+      // Fire a little before the element reaches the fold so it is already
+      // settling by the time it is properly in view.
+      rootMargin: '0px 0px -12% 0px',
+      threshold: 0.05
+    });
+    targets.forEach(function (el) { revealObserver.observe(el); });
+  }
+
+  /* ---------- Nav scroll-spy -------------------------------------- */
+  var links = Array.prototype.slice.call(
+    document.querySelectorAll('.top-nav a[href^="#"]')
+  );
+  var sections = links
+    .map(function (a) { return document.getElementById(a.hash.slice(1)); })
+    .filter(Boolean);
+
+  function setActive(id) {
+    links.forEach(function (a) {
+      a.classList.toggle('active', a.hash === '#' + id);
+    });
+  }
+
+  // A reading line sits ~30% down the viewport; the active section is the last
+  // one that has started above it.
+  //
+  // This replaced an IntersectionObserver band, which got two cases wrong.
+  // Where two sections both straddled the band the earlier one always won, so
+  // an anchor jump could land on a section while the previous tab stayed lit.
+  // And the final section never became active at all: once the page is
+  // scrolled to the bottom it stops moving, so a short last section never
+  // reaches the line -- hence the explicit bottom-of-page case below.
+  function topOf(el) {
+    return el.getBoundingClientRect().top + window.scrollY;
+  }
+
+  function currentSection() {
+    var doc = document.documentElement;
+    var atBottom = window.innerHeight + window.scrollY >= doc.scrollHeight - 2;
+    if (atBottom) return sections[sections.length - 1];
+
+    var line = window.scrollY + window.innerHeight * 0.3;
+    var current = sections[0];
+    for (var i = 0; i < sections.length; i++) {
+      if (topOf(sections[i]) <= line) current = sections[i];
+    }
+    return current;
+  }
+
+  if (sections.length) {
+    var ticking = false;
+    var syncSpy = function () {
+      ticking = false;
+      var s = currentSection();
+      if (s) setActive(s.id);
+    };
+    var onSpyScroll = function () {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(syncSpy);
+    };
+    syncSpy();
+    window.addEventListener('scroll', onSpyScroll, { passive: true });
+    window.addEventListener('resize', onSpyScroll, { passive: true });
+  }
+
+  // Clicking a tab should move keyboard focus to that section, not just the
+  // viewport -- otherwise the next Tab press resumes from the nav.
+  links.forEach(function (a) {
+    a.addEventListener('click', function () {
+      var target = document.getElementById(a.hash.slice(1));
+      if (!target) return;
+      // After the smooth scroll settles, focus without scrolling again.
+      window.setTimeout(function () {
+        target.focus({ preventScroll: true });
+      }, reduced ? 0 : 500);
+    });
+  });
+
+  /* ---------- Sticky nav gains its edge once scrolled ------------- */
+  var nav = document.querySelector('.top-nav');
+  if (nav) {
+    var onScroll = function () {
+      nav.classList.toggle('is-stuck', window.scrollY > 8);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+})();
