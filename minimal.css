@@ -438,6 +438,30 @@ main.page {
 
 /* The nameplate. Space Mono at this weight and size is the one piece of
    display type on the page, so the hero no longer opens on body copy. */
+/* Letters settle in on load, ~35ms apart. The travel is a third of a letter
+   height -- enough to read as motion, small enough not to look like a title
+   sequence. scroll.js splits the name; with JS off the name simply renders. */
+.hero-name .hero-word { display: inline-block; white-space: nowrap; }
+.hero-name .hero-space { display: inline-block; }
+.hero-name .hero-char {
+  display: inline-block;
+  opacity: 0.001;
+  transform: translateY(0.32em);
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+  transition-delay: var(--char-delay, 0s);
+}
+.hero-name.is-lit .hero-char {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-name .hero-char {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 .hero-name {
   font-size: var(--fs-display);
   font-weight: 700;

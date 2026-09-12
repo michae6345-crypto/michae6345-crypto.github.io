@@ -30,7 +30,8 @@
       // positioned, so they are not part of the section's reading sequence
       // and should not consume a stagger step.
       var kids = Array.prototype.filter.call(section.children, function (el) {
-        return !el.classList.contains('note');
+        return !el.classList.contains('note') &&
+               !el.classList.contains('hero-name');
       });
       kids.forEach(function (child, i) {
         child.classList.add('reveal');
@@ -57,6 +58,53 @@
       threshold: 0
     });
     targets.forEach(function (el) { revealObserver.observe(el); });
+  }
+
+  /* ---------- Nameplate entrance ---------------------------------- */
+  // The name settles in letter by letter on load. Words are wrapped
+  // separately so the name still breaks between words on a narrow screen --
+  // per-character inline-blocks would otherwise let it break anywhere.
+  var heroName = document.querySelector('.hero-name');
+  if (heroName) {
+    var full = heroName.textContent.trim();
+    // Screen readers get the whole name from the label rather than spelling
+    // out one span per letter.
+    heroName.setAttribute('aria-label', full);
+
+    if (reduced) {
+      heroName.classList.add('is-lit');
+    } else {
+      var frag = document.createDocumentFragment();
+      var i = 0;
+      full.split(' ').forEach(function (word, w) {
+        if (w > 0) {
+          var gap = document.createElement('span');
+          gap.className = 'hero-space';
+          gap.textContent = '\u00a0';
+          frag.appendChild(gap);
+          i++;
+        }
+        var wordEl = document.createElement('span');
+        wordEl.className = 'hero-word';
+        word.split('').forEach(function (ch) {
+          var c = document.createElement('span');
+          c.className = 'hero-char';
+          c.textContent = ch;
+          c.style.setProperty('--char-delay', (i * 0.035) + 's');
+          wordEl.appendChild(c);
+          i++;
+        });
+        frag.appendChild(wordEl);
+      });
+      heroName.textContent = '';
+      heroName.appendChild(frag);
+      // Next frame, so the starting state is painted before it transitions.
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(function () {
+          heroName.classList.add('is-lit');
+        });
+      });
+    }
   }
 
   /* ---------- Nav scroll-spy -------------------------------------- */
