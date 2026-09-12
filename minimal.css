@@ -29,6 +29,16 @@
   /* Prose wants a shorter line than cards do -- roughly 60-70 characters at
      this size, against ~110 if it filled the column. */
   --prose-max: 680px;
+
+  /* Type scale. The hero read at 1.6rem while the cards sat at 0.8-1rem, so
+     everything below the fold looked shrunken next to it. These pull the rest
+     of the page up to the same footing. */
+  --fs-display: clamp(1.9rem, 7.5vw, 3.5rem);  /* the name */
+  --fs-lead:    clamp(1.25rem, 2.2vw, 1.6rem); /* intro prose */
+  --fs-title:   1.3rem;   /* card titles */
+  --fs-body:    1.05rem;  /* descriptions, body copy */
+  --fs-meta:    0.95rem;  /* years, tags, small labels */
+  --fs-eyebrow: 0.85rem;  /* section labels */
 }
 
 html, body {
@@ -90,7 +100,7 @@ nav.top-nav {
   justify-content: center;
   width: 100%;
   gap: 0.7rem 0.9rem;
-  font-size: 0.85rem;
+  font-size: var(--fs-eyebrow);
   letter-spacing: 0.15em;
   text-transform: lowercase;
 }
@@ -133,7 +143,7 @@ main {
 }
 
 main .eyebrow {
-  font-size: 0.75rem;
+  font-size: var(--fs-eyebrow);
   letter-spacing: 0.25em;
   text-transform: lowercase;
   color: #1a1a1a;
@@ -169,19 +179,24 @@ a.link:hover { color: #1a1a1a; border-bottom-width: 2px; }
    gap so the rounded corners actually read. */
 .proj-item {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1.5rem;
-  padding: 1.3rem 1.45rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 1.4rem 1.55rem;
   border: 1px solid var(--hairline);
   border-radius: var(--radius-card);
   background: var(--surface);
   text-align: left;
 }
-.proj-item .meta { display: flex; flex-direction: column; gap: 0.35rem; }
-.proj-item .title { font-size: 1rem; color: #1a1a1a; font-weight: 700; }
-.proj-item .desc { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.6; }
-.proj-item .yr { font-size: 0.8rem; color: var(--ink-soft); white-space: nowrap; }
+.proj-item .meta { display: flex; flex-direction: column; gap: 0.4rem; }
+.proj-item .title { font-size: var(--fs-title); color: #1a1a1a; font-weight: 700; line-height: 1.4; }
+.proj-item .desc { font-size: var(--fs-body); color: var(--ink-soft); line-height: 1.65; }
+.proj-item .yr {
+  font-size: var(--fs-meta);
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
 
 .section-gap { margin-top: 1rem; }
 .connect-list {
@@ -200,7 +215,7 @@ a.link:hover { color: #1a1a1a; border-bottom-width: 2px; }
 
 footer.page-footer {
   padding-bottom: 2.5rem;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   letter-spacing: 0.1em;
   text-transform: lowercase;
   color: #1a1a1a;
@@ -221,9 +236,9 @@ footer.page-footer {
 .proj-item.link-item::before {
   content: '';
   position: absolute;
-  left: 0.6rem;
-  top: 1.1rem;
-  bottom: 1.1rem;
+  left: 0.62rem;
+  top: 1.3rem;
+  bottom: 1.3rem;
   width: 3px;
   border-radius: 999px;
   background: #1a1a1a;
@@ -402,19 +417,29 @@ main.page {
 .section-intro p {
   max-width: var(--prose-max);
 }
+
+/* The nameplate. Space Mono at this weight and size is the one piece of
+   display type on the page, so the hero no longer opens on body copy. */
+.hero-name {
+  font-size: var(--fs-display);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  margin-bottom: 0.25rem;
+}
 .section-intro p {
-  font-size: 1.6rem;
+  font-size: var(--fs-lead);
   line-height: 1.7;
   color: #1a1a1a;
 }
 .section-intro p.muted {
-  font-size: 1rem;
+  font-size: var(--fs-body);
   color: #1a1a1a;
 }
 @media (max-width: 600px) {
   .section { padding-top: 4.5rem; padding-bottom: 4.5rem; }
   .section-intro { padding-top: 2rem; }
-  .section-intro p { font-size: 1.25rem; }
 }
 
 
@@ -450,7 +475,7 @@ main.page {
   flex-direction: column;
   align-items: flex-start;
   gap: 0.7rem;
-  padding: 1.3rem 1.45rem;
+  padding: 1.4rem 1.55rem;
   border: 1px solid var(--hairline);
   border-radius: var(--radius-card);
   background: var(--surface-sunken);
@@ -458,7 +483,7 @@ main.page {
 }
 
 .award-title {
-  font-size: 1rem;
+  font-size: var(--fs-title);
   font-weight: 700;
   color: var(--ink);
   line-height: 1.45;
@@ -467,7 +492,7 @@ main.page {
 /* Sits above the title as a small label rather than opposite it, so a long
    title never has to share its line. */
 .award-yr {
-  font-size: 0.75rem;
+  font-size: var(--fs-meta);
   letter-spacing: 0.12em;
   color: var(--ink-soft);
   white-space: nowrap;
@@ -484,7 +509,7 @@ main.page {
   margin: 0;
 }
 .award-tags li {
-  font-size: 0.78rem;
+  font-size: var(--fs-meta);
   color: var(--ink);
   padding: 0.45rem 0.85rem;
   border: 1px solid var(--hairline);
@@ -494,14 +519,9 @@ main.page {
 }
 
 @media (max-width: 520px) {
-  .proj-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
   .award-card { padding: 1.15rem 1.2rem; gap: 0.6rem; }
   .award-tags { gap: 0.4rem; }
-  .award-tags li { white-space: normal; font-size: 0.75rem; padding: 0.4rem 0.75rem; }
+  .award-tags li { white-space: normal; padding: 0.45rem 0.8rem; }
 }
 
 /* The hover lift is motion; skip it when motion is unwelcome. */
@@ -512,6 +532,25 @@ main.page {
   .proj-item.link-item:focus-visible { transform: none; }
 }
 
+
+/* ---------- Two-column card grid ---------- */
+/* Below this the cards stay a single stack -- two columns of ~430px would
+   squeeze the descriptions into four-line blocks. */
+@media (min-width: 900px) {
+  .proj-list,
+  .award-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.85rem;
+  }
+  /* An odd number of cards would otherwise leave a hole in the last row, so
+     the final card takes the full width instead. It suits the fly-in card in
+     particular, which carries the pills. */
+  .proj-list > :last-child:nth-child(odd),
+  .award-list > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
 
 /* ---------- Scroll reveal ---------- */
 /* Elements lift in as they enter the viewport. The distance is deliberately
