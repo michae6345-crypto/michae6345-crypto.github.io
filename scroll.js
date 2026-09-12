@@ -24,7 +24,15 @@
   Array.prototype.forEach.call(
     document.querySelectorAll('.section'),
     function (section) {
-      Array.prototype.forEach.call(section.children, function (child, i) {
+      // The margin sticky notes are skipped. They carry their own rotate()
+      // transform, and .reveal.is-in resets transform to none, which would
+      // flatten them the moment they animated in. They are also absolutely
+      // positioned, so they are not part of the section's reading sequence
+      // and should not consume a stagger step.
+      var kids = Array.prototype.filter.call(section.children, function (el) {
+        return !el.classList.contains('note');
+      });
+      kids.forEach(function (child, i) {
         child.classList.add('reveal');
         child.style.setProperty('--reveal-delay', (Math.min(i, 4) * 0.06) + 's');
         targets.push(child);

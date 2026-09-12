@@ -265,24 +265,27 @@ footer.page-footer {
 .proj-item.link-item:focus-visible { outline: none; }
 
 /* ---------- Social row (connect page) ---------- */
+/* This section carried the smallest type on the page while being the one
+   that asks the visitor to do something. Everything in it is now scaled to
+   match the weight the rest of the page picked up. */
 .social-row {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  margin-top: 0.5rem;
+  gap: 1.1rem;
+  margin-top: 0.75rem;
 }
 .social-row a {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 58px;
+  height: 58px;
   border: 1px solid #e2e2e2;
   border-radius: 50%;
   color: #1a1a1a;
   transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
 }
-.social-row a svg { width: 19px; height: 19px; fill: currentColor; }
+.social-row a svg { width: 24px; height: 24px; fill: currentColor; }
 .social-row a:hover { border-color: #1a1a1a; background: #fafafa; transform: translateY(-2px); }
 .section > p.muted {
   max-width: var(--prose-max);
@@ -293,6 +296,19 @@ footer.page-footer {
   gap: 0.75rem;
   align-items: center;
 }
+/* The address is the section's call to action, so it is set as display type
+   rather than as another line of body copy. */
+.email-line a {
+  font-size: clamp(1.15rem, 3.2vw, 1.9rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  border-bottom-width: 2px;
+  padding-bottom: 4px;
+}
+.email-line a:hover { border-bottom-width: 3px; }
+
+#connect { gap: 1.4rem; }
+#connect > p.muted { font-size: var(--fs-body); }
 
 /* ---------- Project detail page ---------- */
 /* The back link is a pill so the page's one navigational control matches the
@@ -407,6 +423,8 @@ main.page {
   scroll-margin-top: 4.5rem;
 }
 .section:focus { outline: none; }
+/* Anchor for the margin sticky notes. */
+.section { position: relative; }
 
 /* The intro holds the first screen, so it is taller and reads larger. */
 .section-intro {
@@ -631,4 +649,49 @@ html:not(.js) .reveal {
   clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
+}
+
+
+/* ---------- Sticky notes ---------- */
+/* Placeholder facts pinned into the empty margins either side of the column.
+   They only appear once the margins are genuinely wide enough to hold them:
+   the column caps at 960px, and a note needs ~11rem of clearance, so below
+   1340px there is nowhere for them to go and they are removed entirely
+   rather than overlapping the content or pushing out the page width. */
+.note {
+  display: none;
+  position: absolute;
+  top: var(--top, 6rem);
+  width: 10.5rem;
+  padding: 0.95rem 1rem 1.1rem;
+  background: #fdf19a;
+  color: #3d3718;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  text-align: left;
+  letter-spacing: -0.01em;
+  /* Square except for one softened corner, which reads as the lifted edge of
+     a paper square without needing an illustration. */
+  border-radius: 2px 2px 14px 2px;
+  border: 1px solid rgba(61, 55, 24, 0.22);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05), 0 10px 20px rgba(0, 0, 0, 0.09);
+  transform: rotate(var(--rot, -3deg));
+  transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+}
+.note--left  { left:  -11.5rem; }
+.note--right { right: -11.5rem; }
+
+/* Straighten and lift slightly under the cursor, like nudging a real one. */
+.note:hover {
+  transform: rotate(calc(var(--rot, -3deg) * 0.3)) translateY(-3px);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05), 0 16px 28px rgba(0, 0, 0, 0.12);
+}
+
+@media (min-width: 1340px) {
+  .note { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .note { transition: none; }
+  .note:hover { transform: rotate(var(--rot, -3deg)); }
 }
