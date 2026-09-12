@@ -19,6 +19,20 @@ one script. Deployed to GitHub Pages from `main`.
 
 Project numbering skips 4 and 7 — those entries were removed.
 
+## Cache busting
+
+GitHub Pages serves HTML with a ten-minute cache and browsers hold it longer,
+so a visitor can sit on a stale copy of the page well after a deploy with no
+sign anything is wrong.
+
+`version.txt` and the `<meta name="build">` in `index.html` carry the same
+build id. `scroll.js` fetches `version.txt` with cache busting on load; if the
+two disagree the page is stale and reloads itself once against a `?v=` URL,
+which the cache cannot answer from its old entry.
+
+**Both values must be updated together on every deploy** — if they drift apart
+permanently, every visitor redirects once per session for nothing.
+
 ## Local preview
 
     python -m http.server 8940

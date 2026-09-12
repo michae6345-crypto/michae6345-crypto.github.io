@@ -17,6 +17,49 @@
   // the content rather than an empty column.
   root.classList.add('js');
 
+  /* ---------- Stale-page self-heal -------------------------------- */
+  // GitHub Pages serves HTML with a ten-minute cache and browsers hold it
+  // longer, so a visitor can sit on a stale copy of this page well after a
+  // deploy -- with no way to tell, since the stale page looks fine.
+  //
+  // The build id is stamped into the HTML at build time and also written to
+  // version.txt. That file is fetched with cache busting, so it is always the
+  // deployed value. If the two disagree, this page is stale and reloads once
+  // against a versioned URL, which the cache cannot answer from its old entry.
+  (function () {
+    var meta = document.querySelector('meta[name="build"]');
+    if (!meta || !window.fetch || !window.URL) return;
+    var mine = (meta.getAttribute('content') || '').trim();
+    if (!mine) return;
+
+    var session = {
+      get: function (k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } },
+      set: function (k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} },
+      del: function (k) { try { sessionStorage.removeItem(k); } catch (e) {} }
+    };
+
+    fetch('version.txt?t=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.text() : null; })
+      .then(function (latest) {
+        if (!latest) return;
+        latest = latest.trim();
+        if (!latest || latest === mine) {
+          session.del('staleReloadFor');   // up to date
+          return;
+        }
+        // Three guards against a reload loop: the URL already carrying this
+        // version, a reload already attempted for it this session, and the
+        // fetch failing (caught below, which does nothing).
+        var url = new URL(window.location.href);
+        if (url.searchParams.get('v') === latest) return;
+        if (session.get('staleReloadFor') === latest) return;
+        session.set('staleReloadFor', latest);
+        url.searchParams.set('v', latest);
+        window.location.replace(url.toString());
+      })
+      .catch(function () { /* offline or blocked: leave the page alone */ });
+  })();
+
   /* ---------- Reveal on entry ------------------------------------- */
   // Direct children of each section animate in, staggered slightly so a
   // section arrives as a sequence rather than a single block.
