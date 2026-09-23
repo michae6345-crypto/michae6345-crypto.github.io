@@ -687,6 +687,7 @@ html:not(.js) .reveal {
   position: absolute;
   top: var(--top, 6rem);
   width: 10.5rem;
+  min-height: 12rem;
   padding: 0.95rem 1rem 1.1rem;
   background: #fdf19a;
   color: #3d3718;
