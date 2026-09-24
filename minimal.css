@@ -531,6 +531,11 @@ main.page {
   line-height: 1.45;
   text-wrap: pretty;
 }
+.award-desc {
+  font-size: var(--fs-meta);
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
 /* Sits above the title as a small label rather than opposite it, so a long
    title never has to share its line. */
 .award-yr {
