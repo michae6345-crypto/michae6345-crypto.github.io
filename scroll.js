@@ -104,49 +104,87 @@
   }
 
   /* ---------- Nameplate entrance ---------------------------------- */
-  // The name settles in letter by letter on load. Words are wrapped
-  // separately so the name still breaks between words on a narrow screen --
-  // per-character inline-blocks would otherwise let it break anywhere.
+  // The name opens as random letters and symbols that keep cycling, and each
+  // letter locks into place at its own moment -- roughly left to right but
+  // jittered -- so the name resolves gradually over several seconds rather
+  // than all at once. Words are wrapped separately so the name still breaks
+  // between words on a narrow screen. Space Mono is monospaced, so swapping
+  // glyphs never changes the name's width.
   var heroName = document.querySelector('.hero-name');
   if (heroName) {
     var full = heroName.textContent.trim();
-    // Screen readers get the whole name from the label rather than spelling
-    // out one span per letter.
+    // Screen readers get the whole name from the label rather than hearing
+    // the scramble.
     heroName.setAttribute('aria-label', full);
 
-    if (reduced) {
-      heroName.classList.add('is-lit');
-    } else {
+    // Runs even under prefers-reduced-motion: nothing moves, the glyphs only
+    // change in place.
+    {
+      var GLYPHS = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*<>/\\|{}[]?=+~;:';
+      var START = 700;     // ms of pure noise before the first letter locks
+      var SPREAD = 5200;   // ms over which the remaining letters lock
+      var TICK = 70;       // ms between glyph swaps
+      var randGlyph = function () {
+        return GLYPHS.charAt(Math.floor(Math.random() * GLYPHS.length));
+      };
+
       var frag = document.createDocumentFragment();
-      var i = 0;
+      var chars = [];
       full.split(' ').forEach(function (word, w) {
         if (w > 0) {
           var gap = document.createElement('span');
           gap.className = 'hero-space';
           gap.textContent = '\u00a0';
           frag.appendChild(gap);
-          i++;
         }
         var wordEl = document.createElement('span');
         wordEl.className = 'hero-word';
         word.split('').forEach(function (ch) {
           var c = document.createElement('span');
-          c.className = 'hero-char';
-          c.textContent = ch;
-          c.style.setProperty('--char-delay', (i * 0.035) + 's');
+          c.className = 'hero-char is-scrambling';
+          c.setAttribute('aria-hidden', 'true');
+          c.textContent = randGlyph();
           wordEl.appendChild(c);
-          i++;
+          chars.push({ el: c, ch: ch });
         });
         frag.appendChild(wordEl);
       });
       heroName.textContent = '';
       heroName.appendChild(frag);
-      // Next frame, so the starting state is painted before it transitions.
-      window.requestAnimationFrame(function () {
-        window.requestAnimationFrame(function () {
-          heroName.classList.add('is-lit');
-        });
+      heroName.classList.add('is-lit');
+
+      // Lock times: evenly spaced slots in reading order, each nudged by a
+      // random amount so neighbours sometimes resolve out of order.
+      var n = chars.length;
+      chars.forEach(function (c, k) {
+        var slot = n > 1 ? k / (n - 1) : 0;
+        var jitter = (Math.random() - 0.5) * 0.35;
+        var t = Math.min(1, Math.max(0, slot + jitter));
+        c.lockAt = START + t * SPREAD;
       });
+
+      var t0 = null;
+      var last = 0;
+      var step = function (now) {
+        if (t0 === null) t0 = now;
+        var elapsed = now - t0;
+        var swap = now - last >= TICK;
+        if (swap) last = now;
+        var pending = 0;
+        chars.forEach(function (c) {
+          if (c.done) return;
+          if (elapsed >= c.lockAt) {
+            c.done = true;
+            c.el.textContent = c.ch;
+            c.el.classList.remove('is-scrambling');
+          } else {
+            pending++;
+            if (swap) c.el.textContent = randGlyph();
+          }
+        });
+        if (pending) window.requestAnimationFrame(step);
+      };
+      window.requestAnimationFrame(step);
     }
   }
 
