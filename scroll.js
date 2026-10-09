@@ -121,9 +121,9 @@
     // change in place.
     {
       var GLYPHS = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*<>/\\|{}[]?=+~;:';
-      var START = 700;     // ms of pure noise before the first letter locks
-      var SPREAD = 5200;   // ms over which the remaining letters lock
-      var TICK = 70;       // ms between glyph swaps
+      var START = 150;     // ms of pure noise before the first letter locks
+      var SPREAD = 1100;   // ms over which the remaining letters lock
+      var TICK = 45;       // ms between glyph swaps
       var randGlyph = function () {
         return GLYPHS.charAt(Math.floor(Math.random() * GLYPHS.length));
       };
@@ -153,14 +153,16 @@
       heroName.appendChild(frag);
       heroName.classList.add('is-lit');
 
-      // Lock times: evenly spaced slots in reading order, each nudged by a
-      // random amount so neighbours sometimes resolve out of order.
+      // Lock times: evenly spaced slots handed out in shuffled order, so the
+      // name resolves from scattered points at once rather than left to right.
       var n = chars.length;
-      chars.forEach(function (c, k) {
-        var slot = n > 1 ? k / (n - 1) : 0;
-        var jitter = (Math.random() - 0.5) * 0.35;
-        var t = Math.min(1, Math.max(0, slot + jitter));
-        c.lockAt = START + t * SPREAD;
+      var order = chars.map(function (_, k) { return k; });
+      for (var k = n - 1; k > 0; k--) {
+        var j = Math.floor(Math.random() * (k + 1));
+        var tmp = order[k]; order[k] = order[j]; order[j] = tmp;
+      }
+      order.forEach(function (idx, slot) {
+        chars[idx].lockAt = START + (n > 1 ? slot / (n - 1) : 0) * SPREAD;
       });
 
       var t0 = null;
