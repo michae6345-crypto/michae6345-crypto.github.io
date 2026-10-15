@@ -11,8 +11,8 @@
 
   /* One saturated accent gives the page its pop: active nav, section labels,
      the hover bar and offset shadow, and the scrambling name. */
-  --accent: #2b59ff;
-  --accent-soft: #eef2ff;
+  --accent: #8c6b43;
+  --accent-soft: #f6f0e6;
   --radius-chip: 999px;  /* pills: tags, meta, back link */
 
   --hairline: #e9e9e9;
