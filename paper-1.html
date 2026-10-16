@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="michael tarekegn — math &amp; ml research, self-attention, physics-informed neural networks." />
+<title>michael tarekegn — optimizer or precision?</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="minimal.css" />
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="index.html#about">about</a>
+  <span class="dot">·</span>
+  <a href="index.html#work" class="active">projs &amp; experience</a>
+  <span class="dot">·</span>
+  <a href="index.html#awards">awards</a>
+  <span class="dot">·</span>
+  <a href="index.html#connect">connect</a>
+</nav>
+
+<main style="max-width:640px; align-items:flex-start; text-align:left;">
+  <a class="back-link" href="index.html#work">← back</a>
+  <h1 class="eyebrow">neurips opt workshop · 2026</h1>
+  <h2 class="paper-title">optimizer or precision? understanding optimizer–precision interactions in pinns</h2>
+
+  <p class="detail-desc">physics-informed neural networks can reach low training loss and still miss the true solution, and earlier work blamed some of that on low arithmetic precision. but those studies only trained with l-bfgs. we separated the two factors, running eight optimizer and precision configurations across four pde benchmarks.</p>
+  <p class="detail-desc">precision mostly matters under l-bfgs: doubling it changed adam's error by at most 1.25×, but l-bfgs's by up to 17.7×. every run that reached low error finished with l-bfgs, and starting in fp32 adam before switching to fp64 l-bfgs beat full fp64 l-bfgs on three of the four benchmarks.</p>
+
+  <div class="detail-meta-row">
+    <span>m. tarekegn et al.</span>
+    <span>opt 2026 poster</span>
+  </div>
+
+  <a class="paper-link" href="https://openreview.net/forum?id=uyYM0lHArz" target="_blank" rel="noopener">read the paper here →</a>
+</main>
+
+<footer class="page-footer">© 2026</footer>
+
+</body>
+</html>
