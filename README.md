@@ -1,63 +1,20 @@
-# michael tarekegn — portfolio
+# michael tarekegn · personal site
 
-Static personal site. No build step, no dependencies — plain HTML, one stylesheet,
-one script. Deployed to GitHub Pages from `main`.
-
-**Live:** https://michae6345-crypto.github.io
-
-## Structure
+Static site, no build step. Deployed to GitHub Pages from `main` at
+https://michaeltarekegn.com.
 
 | File | Purpose |
 |---|---|
-| `index.html` | The whole site: about / work / awards / connect as one scroll |
-| `scroll.js` | Scroll reveal, nav scroll-spy, sticky-nav state |
-| `home.html`, `projects.html`, `awards.html`, `connect.html` | Redirect stubs to the matching `index.html#anchor`, so previously shared links still resolve |
-| `project-{1,2,3,5,6,8}.html` | Detail pages |
-| `minimal.css` | Shared stylesheet |
-| `image-slot.js` | `<image-slot>` custom element for project images |
-| `favicon.svg` | Favicon |
+| `index.html` | Home: intro, about, collapsible timeline and awards, selected research, projects |
+| `projects.html` | Full list of research, experience and projects |
+| `paper-*.html`, `project-*.html` | Detail pages |
+| `style.css` | All styles, light and dark themes |
+| `site.js` | Theme toggle, name scramble, animated folds |
+| `home.html`, `awards.html`, `connect.html` | Redirect stubs so old shared links still resolve |
 
-Project numbering skips 4 and 7 — those entries were removed.
-
-## Cache busting
-
-GitHub Pages serves HTML with a ten-minute cache and browsers hold it longer,
-so a visitor can sit on a stale copy of the page well after a deploy with no
-sign anything is wrong.
-
-`version.txt` and the `<meta name="build">` in `index.html` carry the same
-build id. `scroll.js` fetches `version.txt` with cache busting on load; if the
-two disagree the page is stale and reloads itself once against a `?v=` URL,
-which the cache cannot answer from its old entry.
-
-**Both values must be updated together on every deploy** — if they drift apart
-permanently, every visitor redirects once per session for nothing.
+After editing CSS or JS, bump the `?v=` query on the `style.css` and `site.js`
+links so browsers fetch the new copy.
 
 ## Local preview
 
     python -m http.server 8940
-
-Then open http://localhost:8940 . Use a server, not `file://` — `image-slot.js`
-fetches over HTTP.
-
-## Images
-
-`image-slot.js` reads image data from a sidecar file, `.image-slots.state.json`,
-which is **not currently present**. Until it is, unfilled frames collapse
-(see the empty-slot rules at the bottom of `minimal.css`) so detail pages render
-as text only rather than showing empty placeholder boxes. Adding the sidecar
-makes the frames appear again with no markup change.
-
-Note that drag-and-drop editing only works in the original authoring environment
-(it writes via `window.omelette.writeFile`). On GitHub Pages the slots are
-read-only. For a long-lived static site, plain `<img>` tags are the more robust
-option.
-
-`.nojekyll` is present specifically so GitHub Pages does not strip dotfiles —
-without it, `.image-slots.state.json` would never be served.
-
-## Not deployed
-
-`.gitignore` excludes authoring leftovers. In particular the bundled
-`Michael Portfolio - Projects.html` still contains removed entries, so it must
-not be served.

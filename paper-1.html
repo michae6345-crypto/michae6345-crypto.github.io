@@ -1,45 +1,54 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="michael tarekegn — math &amp; ml research, self-attention, physics-informed neural networks." />
-<title>michael tarekegn — optimizer or precision?</title>
-<link rel="icon" href="favicon.svg" type="image/svg+xml" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="minimal.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Optimizer or Precision? Understanding Optimizer-Precision Interactions in PINNs">
+  <meta name="author" content="Michael Tarekegn">
+  <meta name="build" content="20261022-2200">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Optimizer or Precision? Understanding Optimizer&ndash;Precision Interactions in PINNs &middot; Michael Tarekegn">
+  <meta property="og:description" content="Optimizer or Precision? Understanding Optimizer-Precision Interactions in PINNs">
+  <meta property="og:url" content="https://michaeltarekegn.com/">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23171717'/%3E%3Crect x='5' y='5' width='6' height='6' fill='%23f7f3f0'/%3E%3C/svg%3E">
+  <title>Optimizer or Precision? Understanding Optimizer&ndash;Precision Interactions in PINNs &middot; Michael Tarekegn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css?v=20261022-2200">
+  <script>
+    (function () {
+      var stored = null;
+      try { stored = localStorage.getItem('theme'); } catch (e) {}
+      var prefers = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      if ((stored || prefers) === 'dark') document.documentElement.classList.add('dark');
+    })();
+  </script>
 </head>
 <body>
+  <header class="site-header wrap">
+    <a class="site-wordmark" href="index.html" aria-label="Michael Tarekegn"><span>M</span><span>I</span><span>C</span><span>H</span><span>A</span><span>E</span><span>L</span><span>&nbsp;</span><span>T</span><span>A</span><span>R</span><span>E</span><span>K</span><span>E</span><span>G</span><span>N</span></a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html#about">About Me</a>
+      <a href="projects.html" aria-current="page">My Projects</a>
+      <a href="index.html#awards">Awards</a>
+    </nav>
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch color scheme"><span aria-hidden="true">&#9680;</span></button>
+  </header>
 
-<nav class="top-nav">
-  <a href="index.html#about">about</a>
-  <span class="dot">·</span>
-  <a href="index.html#work" class="active">projs &amp; experience</a>
-  <span class="dot">·</span>
-  <a href="index.html#awards">awards</a>
-  <span class="dot">·</span>
-  <a href="index.html#connect">connect</a>
-</nav>
+  <main class="page wrap">
+    <a class="back-link" href="projects.html">&larr; All projects</a>
+    <p class="eyebrow">NeurIPS OPT Workshop &middot; 2026</p>
+    <h1 class="page-title">Optimizer or Precision? Understanding Optimizer&ndash;Precision Interactions in PINNs</h1>
+    <div class="detail">
+      <p>Physics-informed neural networks can reach low training loss and still miss the true solution, and earlier work blamed some of that on low arithmetic precision. Those studies only trained with L-BFGS, though. We separated the two factors, running eight optimizer and precision configurations across four PDE benchmarks.</p>
+      <p>Precision mostly matters under L-BFGS: doubling it changed Adam's error by at most 1.25&times;, and L-BFGS's by up to 17.7&times;. Every run that reached low error finished with L-BFGS, and starting in FP32 Adam before switching to FP64 L-BFGS beat full FP64 L-BFGS on three of the four benchmarks.</p>
+      <div class="detail-meta"><span>M. Tarekegn et al.</span><span>OPT 2026 poster</span></div>
+      <a class="detail-link" href="https://openreview.net/forum?id=uyYM0lHArz" target="_blank" rel="noopener">Read the paper on OpenReview &#8599;&#xFE0E;</a>
+    </div>
+  </main>
 
-<main style="max-width:640px; align-items:flex-start; text-align:left;">
-  <a class="back-link" href="index.html#work">← back</a>
-  <h1 class="eyebrow">neurips opt workshop · 2026</h1>
-  <h2 class="paper-title">optimizer or precision? understanding optimizer–precision interactions in pinns</h2>
-
-  <p class="detail-desc">physics-informed neural networks can reach low training loss and still miss the true solution, and earlier work blamed some of that on low arithmetic precision. but those studies only trained with l-bfgs. we separated the two factors, running eight optimizer and precision configurations across four pde benchmarks.</p>
-  <p class="detail-desc">precision mostly matters under l-bfgs: doubling it changed adam's error by at most 1.25×, but l-bfgs's by up to 17.7×. every run that reached low error finished with l-bfgs, and starting in fp32 adam before switching to fp64 l-bfgs beat full fp64 l-bfgs on three of the four benchmarks.</p>
-
-  <div class="detail-meta-row">
-    <span>m. tarekegn et al.</span>
-    <span>opt 2026 poster</span>
-  </div>
-
-  <a class="paper-link" href="https://openreview.net/forum?id=uyYM0lHArz" target="_blank" rel="noopener">read the paper here →</a>
-</main>
-
-<footer class="page-footer">© 2026</footer>
-
+  <footer class="site-footer wrap"><span>&copy; 2026 Michael Tarekegn</span></footer>
+  <script src="site.js?v=20261022-2200" defer></script>
 </body>
 </html>

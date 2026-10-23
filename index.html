@@ -1,196 +1,131 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="michael tarekegn — math &amp; ml research, self-attention, physics-informed neural networks." />
-<meta name="build" content="20261015-204847" />
-<meta http-equiv="Cache-Control" content="no-cache" />
-<title>michael tarekegn — portfolio</title>
-<link rel="icon" href="favicon.svg" type="image/svg+xml" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="minimal.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Michael Tarekegn. Math &amp; ML research on self-attention and physics-informed neural networks.">
+  <meta name="author" content="Michael Tarekegn">
+  <meta name="build" content="20261022-2200">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Michael Tarekegn">
+  <meta property="og:description" content="Michael Tarekegn. Math &amp; ML research on self-attention and physics-informed neural networks.">
+  <meta property="og:url" content="https://michaeltarekegn.com/">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23171717'/%3E%3Crect x='5' y='5' width='6' height='6' fill='%23f7f3f0'/%3E%3C/svg%3E">
+  <title>Michael Tarekegn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css?v=20261022-2200">
+  <script>
+    (function () {
+      var stored = null;
+      try { stored = localStorage.getItem('theme'); } catch (e) {}
+      var prefers = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      if ((stored || prefers) === 'dark') document.documentElement.classList.add('dark');
+    })();
+  </script>
 </head>
 <body>
+  <header class="site-header wrap">
+    <a class="site-wordmark" href="index.html" aria-label="Michael Tarekegn"><span>M</span><span>I</span><span>C</span><span>H</span><span>A</span><span>E</span><span>L</span><span>&nbsp;</span><span>T</span><span>A</span><span>R</span><span>E</span><span>K</span><span>E</span><span>G</span><span>N</span></a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html#about">About Me</a>
+      <a href="projects.html">My Projects</a>
+      <a href="index.html#awards">Awards</a>
+    </nav>
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch color scheme"><span aria-hidden="true">&#9680;</span></button>
+  </header>
 
-<a class="skip-link" href="#about">skip to content</a>
+  <main class="profile wrap">
+    <section class="intro-block" aria-labelledby="profile-title">
+      <h1 id="profile-title" class="hero-name" data-alt="m.tarekegn">Michael Tarekegn</h1>
+      <p class="role">Math &amp; ML research &middot; Based in Los Angeles</p>
+      <nav class="quick-links" aria-label="External links">
+        <a href="https://github.com/michae6345-crypto" target="_blank" rel="noopener"><svg class="quick-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a9.5 9.5 0 0 0-3 18.51c.48.09.65-.2.65-.46v-1.67c-2.65.58-3.2-1.13-3.2-1.13-.43-1.1-1.06-1.4-1.06-1.4-.87-.6.07-.59.07-.59.96.07 1.47.99 1.47.99.86 1.47 2.25 1.05 2.8.8.09-.62.34-1.05.62-1.29-2.12-.24-4.35-1.06-4.35-4.72 0-1.04.37-1.89.98-2.56-.1-.24-.42-1.21.09-2.52 0 0 .8-.26 2.62.98A9.1 9.1 0 0 1 12 7.61a9.1 9.1 0 0 1 2.39.32c1.82-1.24 2.62-.98 2.62-.98.51 1.31.19 2.28.09 2.52.61.67.98 1.52.98 2.56 0 3.67-2.23 4.47-4.36 4.71.34.29.65.84.65 1.69v2.5c0 .26.17.55.66.46A9.5 9.5 0 0 0 12 2.5Z"/></svg>GitHub</a>
+        <a href="https://www.linkedin.com/in/michael-tarekegn-8a4195365/" target="_blank" rel="noopener"><svg class="quick-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.25 3.5a1.75 1.75 0 1 0 0 3.5 1.75 1.75 0 0 0 0-3.5ZM3.75 8.25h3v12h-3v-12Zm4.88 0h2.87v1.64h.04c.4-.76 1.38-1.96 2.84-1.96 3.04 0 3.6 2 3.6 4.6v5.72h-3v-5.07c0-1.21-.02-2.77-1.69-2.77-1.69 0-1.95 1.32-1.95 2.68v5.16h-3v-12Z"/></svg>LinkedIn</a>
+        <a href="https://x.com/MichaelTar23939" target="_blank" rel="noopener" aria-label="X profile"><svg class="quick-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2H22l-6.8 7.8L23.2 22H17l-4.9-7.4L5.6 22H2.4l7.8-8.9L.8 2h6.4l4.5 6.8L18.9 2Zm-1.1 18h1.7L6.3 3.9H4.5L17.8 20Z"/></svg>X</a>
+        <a href="mailto:mm.tarekegn@gmail.com"><svg class="quick-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 5.25h17v13.5h-17V5.25Zm1.7 1.5L12 12.02l6.8-5.27H5.2Zm13.8 10.5v-8.6L12 14.08 4.98 8.65v8.6h14.04Z"/></svg>Email</a>
+      </nav>
+    </section>
 
-<nav class="top-nav" aria-label="sections">
-  <a href="#about" class="active">about</a>
-  <span class="dot">·</span>
-  <a href="#work">projs &amp; experience</a>
-  <span class="dot">·</span>
-  <a href="#awards">awards</a>
-  <span class="dot">·</span>
-  <a href="#connect">connect</a>
-</nav>
-
-<main class="page">
-
-  <section id="about" class="section section-intro" tabindex="-1" aria-labelledby="about-h">
-    <!-- PLACEHOLDER FACTS (technical): swap the text in these .note elements for real
-         ones. They are decorative filler and only show above 1340px. -->
-    <aside class="note note--right" style="--top:7.5rem;--rot:3.5deg"></aside>
-    <aside class="note note--left" style="--top:17rem;--rot:-4deg"></aside>
-
-    <h1 class="hero-name" id="about-h">michael tarekegn</h1>
-    <p>hi, i'm michael! i'm a math &amp; ml researcher working on self-attention mechanisms and physics-informed neural networks. feel free to check out my <a href="https://github.com/michae6345-crypto" target="_blank" rel="noopener noreferrer" class="link">github</a>.</p>
-  </section>
-
-  <section id="work" class="section" tabindex="-1" aria-label="projs &amp; experience">
-    <!-- PLACEHOLDER FACTS (technical): swap the text in these .note elements for real
-         ones. They are decorative filler and only show above 1340px. -->
-    <aside class="note note--left" style="--top:9rem;--rot:-4deg"></aside>
-    <aside class="note note--right" style="--top:24rem;--rot:3deg"></aside>
-
-    <h2 class="eyebrow">publications</h2>
-    <div class="proj-list">
-      <a class="proj-item link-item" href="paper-2.html">
-        <span class="yr">2026</span>
-        <div class="meta">
-          <span class="title">interpretable multilingual attribution of frontier llms</span>
-          <span class="desc">m. tarekegn et al. · ieee bigdata high school symposium · best paper finalist</span>
-        </div>
-      </a>
-      <a class="proj-item link-item" href="paper-1.html">
-        <span class="yr">2026</span>
-        <div class="meta">
-          <span class="title">optimizer or precision? understanding optimizer–precision interactions in pinns</span>
-          <span class="desc">m. tarekegn et al. · neurips opt workshop</span>
-        </div>
-      </a>
-    </div>
-
-    <h2 class="eyebrow section-gap">experience</h2>
-    <div class="proj-list">
-      <a class="proj-item link-item" href="project-4.html">
-        <span class="yr">2026</span>
-        <div class="meta">
-          <span class="title">cofounder &amp; cto @ ai &amp; machine learning initiative</span>
-          <span class="desc">building the frontier of ai education for teens</span>
-        </div>
-      </a>
-      <a class="proj-item link-item" href="project-1.html">
-        <span class="yr">2025</span>
-        <div class="meta">
-          <span class="title">ml researcher @ ucla</span>
-          <span class="desc">characterizing the critical points of linear self-attention</span>
-        </div>
-      </a>
-      <a class="proj-item link-item" href="project-2.html">
-        <span class="yr">2025</span>
-        <div class="meta">
-          <span class="title">ml researcher @ cal state la</span>
-          <span class="desc">nasa-funded spatiotemporal ml for air quality prediction</span>
-        </div>
-      </a>
-      <a class="proj-item link-item" href="project-3.html">
-        <span class="yr">2025</span>
-        <div class="meta">
-          <span class="title">ml researcher @ algoverse ai</span>
-          <span class="desc">benchmarking physics-informed neural networks across precision and optimizer settings</span>
-        </div>
-      </a>
-    </div>
-
-    <h2 class="eyebrow section-gap">projects</h2>
-    <div class="proj-list">
-      <a class="proj-item link-item" href="project-7.html">
-        <span class="yr">2026</span>
-        <div class="meta">
-          <span class="title">ledger</span>
-          <span class="desc">the ai compliance layer for small stores</span>
-        </div>
-      </a>
-      <a class="proj-item link-item" href="project-5.html">
-        <span class="yr">2026</span>
-        <div class="meta">
-          <span class="title">compllm</span>
-          <span class="desc">stylometric engine that attributes text to the llm that wrote it</span>
-        </div>
-      </a>
-      <a class="proj-item link-item" href="project-6.html">
-        <span class="yr">2026</span>
-        <div class="meta">
-          <span class="title">black-scholes &amp; greeks</span>
-          <span class="desc">options pricing model implementing black-scholes and the greeks</span>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  <section id="awards" class="section" tabindex="-1" aria-labelledby="awards-h">
-    <!-- PLACEHOLDER FACTS (technical): swap the text in these .note elements for real
-         ones. They are decorative filler and only show above 1340px. -->
-    <aside class="note note--left" style="--top:8.5rem;--rot:-3deg"></aside>
-
-    <h2 class="eyebrow" id="awards-h">awards</h2>
-    <div class="award-list">
-      <div class="award-card">
-        <span class="award-yr">2026</span>
-        <span class="award-title">best paper finalist @ ieee bigdata high school symposium</span>
-        <span class="award-desc">one of 12 finalists out of 130 accepted papers</span>
+    <section class="content-section about-section" id="about" aria-labelledby="about-heading">
+      <h2 class="section-title" id="about-heading">About Me</h2>
+      <div class="about">
+        <p>I'm currently doing ML research in the math department at <a class="org" href="project-1.html"><img src="https://www.google.com/s2/favicons?domain=ucla.edu&amp;sz=64" alt="" onerror="this.remove()">UCLA</a>, where I study linear approximations to self-attention, and at <a class="org" href="project-2.html"><img src="https://www.google.com/s2/favicons?domain=calstatela.edu&amp;sz=64" alt="" onerror="this.remove()">Cal State LA</a>, where I build spatiotemporal models for a NASA-funded air quality project. I'm also cofounder and CTO of the <a class="org" href="project-4.html">AI &amp; Machine Learning Initiative</a>, which teaches AI to teens.</p>
+        <p>My research interests sit where math, physics, and machine learning meet: why models train the way they do, and where cheaper approximations hold up or break down.</p>
+        <p>This year I had work on <a href="paper-1.html">optimizer and precision interactions in PINNs</a> accepted to the NeurIPS OPT workshop, and a paper on <a href="paper-2.html">multilingual LLM attribution</a> named a best paper finalist at the IEEE BigData High School Symposium. You can find the rest in <a href="#more-about-me" data-open-fold="more-about-me">more about me</a> or on my <a href="https://github.com/michae6345-crypto" target="_blank" rel="noopener">GitHub</a>.</p>
       </div>
+      <p class="workplaces">Places I've worked in: <a class="org" href="project-1.html"><img src="https://www.google.com/s2/favicons?domain=ucla.edu&amp;sz=64" alt="" onerror="this.remove()">UCLA</a>, <a class="org" href="project-2.html"><img src="https://www.google.com/s2/favicons?domain=calstatela.edu&amp;sz=64" alt="" onerror="this.remove()">Cal State LA</a>, <a class="org" href="project-3.html">Algoverse</a>.</p>
+    </section>
 
-      <div class="award-card">
-        <span class="award-yr">2026</span>
-        <span class="award-title">y combinator startup school</span>
-        <span class="award-desc">awarded $30k+ in compute credits</span>
+    <details class="fold" id="more-about-me">
+      <summary>More about me <span>click to expand</span></summary>
+      <div class="timeline-panel">
+        <div class="timeline">
+          <article class="timeline-item"><time class="timeline-date">2026 - Present</time><div class="timeline-entry"><h3>AI education for teens</h3><ul>
+            <li>Cofounded the <a href="project-4.html">AI &amp; Machine Learning Initiative</a> and serve as CTO, leading its technical direction and the projects members build.</li>
+          </ul></div></article>
+          <article class="timeline-item"><time class="timeline-date">2025 - Present</time><div class="timeline-entry"><h3>ML research</h3><ul>
+            <li>Research assistant in the <a href="project-1.html">UCLA Department of Mathematics</a>, testing where linear approximations to self-attention match standard attention and where they break down.</li>
+            <li>Research assistant on a <a href="project-2.html">NASA-funded project at Cal State LA</a> with Dr. Mohammad Pourhomayoun, building pipelines and spatiotemporal models that predict air quality and its effect on ER visits.</li>
+            <li>Benchmarked <a href="project-3.html">physics-informed neural networks at Algoverse</a> across every dtype and optimizer combination. Accepted to the NeurIPS OPT workshop.</li>
+          </ul></div></article>
+          <article class="timeline-item"><time class="timeline-date">2026</time><div class="timeline-entry"><h3>Building things</h3><ul>
+            <li><a href="project-7.html">Ledger</a>, an AI compliance layer for small stores.</li>
+            <li><a href="project-5.html">CompLLM</a>, a stylometric engine that names the LLM behind a piece of text from writing style alone.</li>
+            <li><a href="project-6.html">Black-Scholes &amp; Greeks</a>, European option pricing derived from the underlying PDE.</li>
+            <li>Top 8 in the Citadel Securities High School Terminal with a game-playing algorithm.</li>
+          </ul></div></article>
+        </div>
       </div>
+    </details>
 
-      <div class="award-card">
-        <span class="award-yr">top 8</span>
-        <span class="award-title">citadel securities high school terminal</span>
-        <span class="award-desc">built a game-playing algorithm for citadel's strategy competition</span>
+    <details class="fold" id="awards">
+      <summary>Honours &amp; Awards <span>click to expand</span></summary>
+      <div class="honors-panel">
+        <section class="honors-group" aria-labelledby="honours-heading">
+          <h3 id="honours-heading">Honours &amp; Awards</h3>
+          <ul class="honors-list">
+            <li><strong>Best Paper Finalist &middot; IEEE BigData 2026 High School Symposium</strong><ul><li>One of 12 finalists out of 130 accepted papers</li></ul></li>
+            <li><strong>Y Combinator Startup School 2026</strong><ul><li>Awarded $30K+ in compute credits</li></ul></li>
+            <li><strong>Top 8 &middot; Citadel Securities High School Terminal</strong><ul><li>Built a game-playing algorithm for Citadel's strategy competition</li></ul></li>
+          </ul>
+        </section>
+        <section class="honors-group" aria-labelledby="programs-heading">
+          <h3 id="programs-heading">Selective Programs</h3>
+          <ul class="honors-list">
+            <li><strong>WISE @ MIT</strong></li>
+            <li><strong>Up Close @ Caltech</strong></li>
+            <li><strong>Engineering Preview @ Columbia</strong></li>
+            <li><strong>FAST @ Harvey Mudd</strong></li>
+            <li><strong>PEEP @ UPenn</strong></li>
+          </ul>
+        </section>
       </div>
+    </details>
 
-      <div class="award-card">
-        <span class="award-title">fly-in programs</span>
-        <span class="award-desc">selected for competitive engineering &amp; stem programs at top universities</span>
-        <ul class="award-tags">
-          <li>wise @ mit</li>
-          <li>up close @ caltech</li>
-          <li>eng preview @ columbia</li>
-          <li>fast @ harvey mudd</li>
-          <li>peep @ upenn</li>
-        </ul>
+    <section class="content-section" id="research" aria-labelledby="research-heading">
+      <h2 class="section-title" id="research-heading">My Selected Research</h2>
+      <ul class="paper-list" aria-label="Selected papers">
+          <li><div class="paper-row"><div class="paper-info"><span class="paper-date">2026</span><strong><a href="paper-2.html">Interpretable Multilingual Attribution of Frontier LLMs</a></strong><em>IEEE BigData 2026 High School Symposium &middot; Best Paper Finalist</em><span class="coauthors">M. Tarekegn et al.</span></div><span class="paper-links"><a href="paper-2.html">Details</a><span>Paper out Dec 2026</span></span></div></li>
+          <li><div class="paper-row"><div class="paper-info"><span class="paper-date">2026</span><strong><a href="paper-1.html">Optimizer or Precision? Understanding Optimizer&ndash;Precision Interactions in PINNs</a></strong><em>NeurIPS 2026 OPT Workshop &middot; Poster</em><span class="coauthors">M. Tarekegn et al. &middot; Algoverse</span></div><span class="paper-links"><a href="https://openreview.net/forum?id=uyYM0lHArz" target="_blank" rel="noopener">OpenReview</a></span></div></li>
+          <li><div class="paper-row"><div class="paper-info"><span class="paper-date">In progress</span><strong><a href="project-1.html">Critical Points of Linear Self-Attention</a></strong><em>UCLA Department of Mathematics &middot; Manuscript in progress</em><span class="coauthors">Research assistant</span></div><span class="paper-links"><a href="project-1.html">Details</a></span></div></li>
+      </ul>
+      <a class="view-all" href="projects.html">View all</a>
+    </section>
+
+    <section class="content-section" id="projects" aria-labelledby="projects-heading">
+      <h2 class="section-title" id="projects-heading">Projects</h2>
+      <div class="card-list">
+        <a class="card-link" href="project-7.html"><span><span class="card-title">Ledger</span><span class="card-description">The AI compliance layer for small stores.</span></span><span class="card-side"><span class="card-date">2026</span><span class="card-arrow" aria-hidden="true">&#8599;&#xFE0E;</span></span></a>
+        <a class="card-link" href="project-5.html"><span><span class="card-title">CompLLM</span><span class="card-description">Stylometric engine that attributes text to the LLM that wrote it.</span></span><span class="card-side"><span class="card-date">2026</span><span class="card-arrow" aria-hidden="true">&#8599;&#xFE0E;</span></span></a>
+        <a class="card-link" href="project-6.html"><span><span class="card-title">Black-Scholes &amp; Greeks</span><span class="card-description">Options pricing model implementing Black-Scholes and the Greeks from scratch.</span></span><span class="card-side"><span class="card-date">2026</span><span class="card-arrow" aria-hidden="true">&#8599;&#xFE0E;</span></span></a>
       </div>
-    </div>
-  </section>
+      <a class="view-all" href="projects.html">View all</a>
+    </section>
+  </main>
 
-  <section id="connect" class="section" tabindex="-1" aria-labelledby="connect-h">
-    <!-- PLACEHOLDER FACTS (technical): swap the text in these .note elements for real
-         ones. They are decorative filler and only show above 1340px. -->
-    <aside class="note note--right" style="--top:7rem;--rot:4deg"></aside>
-
-    <h2 class="eyebrow" id="connect-h">connect</h2>
-    <p class="muted">for any inquiries:</p>
-
-    <div class="email-line">
-      <a href="mailto:mm.tarekegn@gmail.com" class="link">mm.tarekegn@gmail.com</a>
-    </div>
-
-    <p class="muted">always open to collaborating on research or interesting projects — reach out if something sounds like a fit.</p>
-
-    <div class="social-row">
-      <a href="https://github.com/michae6345-crypto" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
-        <svg viewBox="0 0 24 24"><path d="M12 .5C5.73.5.98 5.24.98 11.52c0 5.02 3.26 9.28 7.78 10.78.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.1-3.17.69-3.84-1.34-3.84-1.34-.52-1.3-1.26-1.65-1.26-1.65-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.73 2.65 1.23 3.3.94.1-.74.4-1.23.72-1.51-2.53-.29-5.19-1.27-5.19-5.63 0-1.24.44-2.26 1.17-3.06-.12-.29-.51-1.45.11-3.02 0 0 .96-.31 3.15 1.17a10.9 10.9 0 0 1 5.73 0c2.19-1.48 3.15-1.17 3.15-1.17.62 1.57.23 2.73.11 3.02.73.8 1.17 1.82 1.17 3.06 0 4.37-2.66 5.34-5.2 5.62.41.36.77 1.06.77 2.15 0 1.55-.01 2.8-.01 3.18 0 .3.2.66.79.55 4.51-1.51 7.77-5.76 7.77-10.78C23.02 5.24 18.27.5 12 .5Z"/></svg>
-      </a>
-      <a href="https://www.linkedin.com/in/michael-tarekegn-8a4195365/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
-        <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>
-      </a>
-      <a href="https://x.com/MichaelTar23939" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter" title="X">
-        <svg viewBox="0 0 24 24"><path d="M18.9 2h3.1l-6.77 7.74L23.1 22h-6.23l-4.88-6.39L6.4 22H3.3l7.24-8.28L2.9 2h6.38l4.41 5.84L18.9 2Zm-1.09 18.17h1.72L7.28 3.75H5.43l12.38 16.42Z"/></svg>
-      </a>
-    </div>
-  </section>
-
-</main>
-
-<footer class="page-footer">© 2026</footer>
-
-<script src="scroll.js" defer></script>
+  <footer class="site-footer wrap"><span>&copy; 2026 Michael Tarekegn</span></footer>
+  <script src="site.js?v=20261022-2200" defer></script>
 </body>
 </html>
