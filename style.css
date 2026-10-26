@@ -45,14 +45,6 @@ button { font: inherit; }
 /* header */
 .site-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.25rem 0; }
 .site-wordmark { flex: 0 0 auto; color: var(--strong); font: 600 .68rem/1 var(--small-mono); letter-spacing: .12em; text-decoration: none; text-transform: uppercase; }
-.site-wordmark span { display: inline-block; animation: flicker 2.8s ease-in-out infinite; }
-.site-wordmark span:nth-child(2n) { animation-delay: .35s; }
-.site-wordmark span:nth-child(3n) { animation-delay: .7s; }
-@keyframes flicker {
-  0%, 100% { opacity: .86; transform: translateY(0); }
-  48% { opacity: .58; transform: translateY(.5px); }
-  52% { opacity: 1; transform: translateY(-.5px); }
-}
 .main-nav { display: flex; align-items: center; justify-content: center; gap: clamp(.65rem, 2.2vw, 1.5rem); margin: 0 auto; }
 .main-nav a { color: var(--muted); font: 400 .84rem/1.3 var(--sans); text-decoration: none; white-space: nowrap; transition: color .18s ease; }
 .main-nav a:hover, .main-nav a:focus-visible, .main-nav a[aria-current="page"] { color: var(--strong); }
@@ -64,7 +56,6 @@ button { font: inherit; }
 .profile { padding: 1.6rem 0 6rem; }
 .intro-block { padding-bottom: .9rem; }
 h1 { margin: 0; color: var(--strong); font: 500 clamp(2.1rem, 6vw, 3.4rem)/1.15 var(--sans); letter-spacing: -.04em; }
-.hero-name { display: inline-block; white-space: pre; cursor: pointer; }
 .role { margin: .65rem 0 1.5rem; color: var(--muted); font-size: 1.05rem; }
 .quick-links { display: flex; flex-wrap: wrap; gap: .55rem; }
 .quick-links a { display: inline-flex; align-items: center; gap: .38rem; padding: .32rem .62rem; border: 1px solid var(--line); background: var(--button); color: var(--secondary); font: 10px/1.7 var(--sans); text-decoration: none; }
@@ -167,6 +158,7 @@ summary span { order: 2; margin-left: auto; color: var(--muted); font-size: 10px
 .detail p { margin: 0 0 1.1rem; color: var(--secondary); font-size: .95rem; line-height: 1.75; }
 .detail-meta { display: flex; flex-wrap: wrap; gap: .4rem 1.5rem; margin: 1.75rem 0 0; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--muted); font: .7rem/1.5 var(--small-mono); letter-spacing: .04em; }
 .detail-link { display: inline-block; margin-top: 1.5rem; color: var(--accent); font-size: .9rem; text-decoration-color: currentColor; }
+.detail-link + .detail-link { margin-left: 1.25rem; }
 .detail-pending { display: inline-block; margin-top: 1.5rem; color: var(--muted); font: .78rem/1.5 var(--small-mono); }
 .back-link { display: inline-block; margin-bottom: 2rem; color: var(--muted); font: 400 .78rem/1.5 var(--sans); text-decoration: none; }
 .back-link:hover { color: var(--strong); }

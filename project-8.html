@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Hivemind">
+  <meta name="author" content="Michael Tarekegn">
+  <meta name="build" content="20261022-2200">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Hivemind &middot; Michael Tarekegn">
+  <meta property="og:description" content="Hivemind">
+  <meta property="og:url" content="https://michaeltarekegn.com/">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23171717'/%3E%3Crect x='5' y='5' width='6' height='6' fill='%23f7f3f0'/%3E%3C/svg%3E">
+  <title>Hivemind &middot; Michael Tarekegn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css?v=20261025-2">
+  <script>
+    (function () {
+      var stored = null;
+      try { stored = localStorage.getItem('theme'); } catch (e) {}
+      var prefers = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      if ((stored || prefers) === 'dark') document.documentElement.classList.add('dark');
+    })();
+  </script>
+</head>
+<body>
+  <header class="site-header wrap">
+    <a class="site-wordmark" href="index.html" aria-label="Michael Tarekegn"><span>M</span><span>I</span><span>C</span><span>H</span><span>A</span><span>E</span><span>L</span><span>&nbsp;</span><span>T</span><span>A</span><span>R</span><span>E</span><span>K</span><span>E</span><span>G</span><span>N</span></a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html#about">About Me</a>
+      <a href="projects.html" aria-current="page">My Projects</a>
+      <a href="index.html#awards">Awards</a>
+    </nav>
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch color scheme"><span aria-hidden="true">&#9680;</span></button>
+  </header>
+
+  <main class="page wrap">
+    <a class="back-link" href="projects.html">&larr; All projects</a>
+    <p class="eyebrow">Project &middot; 2026 &middot; SEP Hacks</p>
+    <h1 class="page-title">Hivemind</h1>
+    <div class="detail">
+      <p>Shared memory for a team's AI coding agents. When an engineer corrects their agent, Hivemind turns the correction into a short lesson. A lead approves it, and every teammate's agent (Claude Code, Cursor, Codex, Copilot, Gemini CLI) loads it at the start of its next session. Security can lock rules so a lesson that contradicts them never reaches an agent.</p>
+      <p>I built the learning engine and the agent integrations: Claude Haiku decides whether a correction is a reusable rule, merges it with existing lessons and checks it against locked rules. Lessons are ranked by a confidence score that goes up when they hold and down when they get corrected.</p>
+      <p>In an eval of 12 coding tasks with 3 runs each, graded by code, headless Claude Code broke the team's unwritten rules in 22 of 36 runs with no memory and 0 of 36 with Hivemind's lessons.</p>
+      <a class="detail-link" href="https://hivemind-q17i.onrender.com" target="_blank" rel="noopener">Live site &#8599;&#xFE0E;</a>
+      <a class="detail-link" href="https://github.com/michae6345-crypto/hivemind" target="_blank" rel="noopener">GitHub &#8599;&#xFE0E;</a>
+      <div class="detail-meta"><span>Role: learning engine &amp; agent integrations</span><span>With Adrian Erlikhman</span><span>2026</span></div>
+    </div>
+  </main>
+
+  <footer class="site-footer wrap"><span>&copy; 2026 Michael Tarekegn</span></footer>
+  <script src="site.js?v=20261025-2" defer></script>
+</body>
+</html>
