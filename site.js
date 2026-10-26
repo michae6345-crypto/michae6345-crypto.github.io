@@ -75,9 +75,6 @@
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(pinWidth);
     window.addEventListener('resize', pinWidth);
 
-    name.textContent = alt;
-    setTimeout(function () { run(from, 180); }, 150);
-
     if (window.matchMedia('(hover: hover)').matches) {
       name.addEventListener('pointerenter', runNext);
       name.addEventListener('pointerleave', function () { run(from); });

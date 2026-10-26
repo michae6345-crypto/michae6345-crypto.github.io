@@ -10,7 +10,6 @@
   --line: rgba(0, 0, 0, .11);
   --button: #f1ece8;
   --accent: #2563eb;
-  --glitch: rgba(138, 180, 255, .95);
   --mono: "JetBrains Mono", ui-monospace, monospace;
   --small-mono: "Geist Mono", ui-monospace, monospace;
   --sans: "Geist", Arial, sans-serif;
@@ -65,16 +64,7 @@ button { font: inherit; }
 .profile { padding: 1.6rem 0 6rem; }
 .intro-block { padding-bottom: .9rem; }
 h1 { margin: 0; color: var(--strong); font: 500 clamp(2.1rem, 6vw, 3.4rem)/1.15 var(--sans); letter-spacing: -.04em; }
-.hero-name { display: inline-block; white-space: pre; cursor: pointer; transition: color .2s ease, text-shadow .2s ease; }
-.hero-name:active { color: #8ab4ff; }
-.hero-name.is-morphing { text-shadow: 2px 0 var(--glitch), -2px 0 rgba(255, 75, 105, .8), 0 0 12px rgba(138, 180, 255, .28); filter: contrast(1.35); animation: nameGlitch .12s steps(2, end) infinite; }
-.hero-name.is-alt-script { color: #8ab4ff; }
-@keyframes nameGlitch {
-  0%, 100% { transform: translateX(0) skewX(0); }
-  25% { transform: translateX(-3px) skewX(-4deg); }
-  50% { transform: translateX(3px) skewX(4deg); }
-  75% { transform: translateX(-1px) skewX(-2deg); }
-}
+.hero-name { display: inline-block; white-space: pre; cursor: pointer; }
 .role { margin: .65rem 0 1.5rem; color: var(--muted); font-size: 1.05rem; }
 .quick-links { display: flex; flex-wrap: wrap; gap: .55rem; }
 .quick-links a { display: inline-flex; align-items: center; gap: .38rem; padding: .32rem .62rem; border: 1px solid var(--line); background: var(--button); color: var(--secondary); font: 10px/1.7 var(--sans); text-decoration: none; }
