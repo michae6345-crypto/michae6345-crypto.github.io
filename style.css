@@ -69,8 +69,8 @@ h1 { margin: 0; color: var(--strong); font: 500 clamp(2.1rem, 6vw, 3.4rem)/1.15 
 .about-section { padding-top: 1.5rem; }
 .section-title { margin: 0 0 1.25rem; color: var(--strong); font: 600 1.1rem/1.45 var(--mono); letter-spacing: -.03em; }
 .about p { margin: 0 0 1rem; color: var(--secondary); font-size: .88rem; line-height: 1.7; }
-.org { display: inline-flex; align-items: center; gap: .3em; white-space: nowrap; }
-.org img { width: 1.1em; height: 1.1em; object-fit: contain; }
+.org { white-space: nowrap; }
+.org img { display: inline-block; width: 1.1em; height: 1.1em; margin-right: .3em; vertical-align: -.2em; object-fit: contain; }
 .workplaces { margin: 1.15rem 0 0; color: var(--secondary); font-size: .88rem; line-height: 1.8; }
 .workplaces a { color: var(--muted); }
 .workplaces a:hover { color: var(--strong); }
