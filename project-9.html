@@ -3,19 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Monte">
+  <meta name="description" content="What your credit cards really cost you, and the right card for every purchase.">
   <meta name="author" content="Michael Tarekegn">
-  <meta name="build" content="20261022-2200">
+  <meta name="build" content="20261029-0100">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Monte &middot; Michael Tarekegn">
-  <meta property="og:description" content="Monte">
-  <meta property="og:url" content="https://michaeltarekegn.com/">
+  <meta property="og:description" content="What your credit cards really cost you, and the right card for every purchase.">
+  <meta property="og:url" content="https://michaeltarekegn.com/project-9.html">
+  <link rel="canonical" href="https://michaeltarekegn.com/project-9.html">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23171717'/%3E%3Crect x='5' y='5' width='6' height='6' fill='%23f7f3f0'/%3E%3C/svg%3E">
   <title>Monte &middot; Michael Tarekegn</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="style.css?v=20261025-2">
+  <link rel="stylesheet" href="style.css?v=20261029-1">
   <script>
     (function () {
       var stored = null;
@@ -27,11 +28,12 @@
 </head>
 <body>
   <header class="site-header wrap">
-    <a class="site-wordmark" href="index.html" aria-label="Michael Tarekegn"><span>M</span><span>I</span><span>C</span><span>H</span><span>A</span><span>E</span><span>L</span><span>&nbsp;</span><span>T</span><span>A</span><span>R</span><span>E</span><span>K</span><span>E</span><span>G</span><span>N</span></a>
+    <a class="site-wordmark" href="index.html">Michael Tarekegn</a>
     <nav class="main-nav" aria-label="Main navigation">
       <a href="index.html#about">About Me</a>
-      <a href="projects.html" aria-current="page">My Projects</a>
+      <a href="projects.html" aria-current="true">My Projects</a>
       <a href="index.html#awards">Awards</a>
+      <a href="resume.pdf" target="_blank" rel="noopener">Resume</a>
     </nav>
     <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch color scheme"><span aria-hidden="true">&#9680;</span></button>
   </header>
@@ -44,15 +46,17 @@
       <p>Rewards apps show you points. Monte shows what your credit cards really cost you: a year of rewards and perks used, minus annual fees and interest, per card. It replays the same purchases on the best card already in your wallet, ranks your cards at the register, and says which cards are worth keeping.</p>
       <p>I built the backend: the Plaid integration, a Monte Carlo simulation that resamples your own months into 1,000 simulated years, a linear-programming optimizer that checks greedy card routing against the true optimum under spending caps, and the test suite. The AI never does the math; every dollar traces to a published card rule.</p>
       <p>Built at ACM@USC TrojanHacks 2026, Finance track.</p>
-      <a class="detail-link" href="https://ace-eta-beryl.vercel.app" target="_blank" rel="noopener">Live site &#8599;&#xFE0E;</a>
-      <a class="detail-link" href="https://youtu.be/Tn4YrpoLjh8" target="_blank" rel="noopener">Demo video &#8599;&#xFE0E;</a>
-      <a class="detail-link" href="https://devpost.com/software/monte-calygj" target="_blank" rel="noopener">Devpost &#8599;&#xFE0E;</a>
-      <a class="detail-link" href="https://github.com/michae6345-crypto/monte" target="_blank" rel="noopener">GitHub &#8599;&#xFE0E;</a>
+      <div class="detail-links">
+        <a class="detail-link" href="https://ace-eta-beryl.vercel.app" target="_blank" rel="noopener">Live site &#8599;&#xFE0E;</a>
+        <a class="detail-link" href="https://youtu.be/Tn4YrpoLjh8" target="_blank" rel="noopener">Demo video &#8599;&#xFE0E;</a>
+        <a class="detail-link" href="https://devpost.com/software/monte-calygj" target="_blank" rel="noopener">Devpost &#8599;&#xFE0E;</a>
+        <a class="detail-link" href="https://github.com/michae6345-crypto/monte" target="_blank" rel="noopener">GitHub &#8599;&#xFE0E;</a>
+      </div>
       <div class="detail-meta"><span>Role: backend, simulation &amp; optimization</span><span>With Adrian Erlikhman</span><span>2026</span></div>
     </div>
   </main>
 
   <footer class="site-footer wrap"><span>&copy; 2026 Michael Tarekegn</span></footer>
-  <script src="site.js?v=20261025-2" defer></script>
+  <script src="site.js?v=20261029-1" defer></script>
 </body>
 </html>

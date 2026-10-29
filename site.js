@@ -17,7 +17,12 @@
   }
 
   // animated folds
+  // the state a fold is heading to; details.open lags behind while closing
+  function isOpening(details) {
+    return details._target !== undefined ? details._target : details.open;
+  }
   function setFold(details, opening) {
+    details._target = opening;
     var summary = details.querySelector('summary');
     var hint = summary.querySelector('span');
     summary.setAttribute('aria-expanded', String(opening));
@@ -47,9 +52,17 @@
     summary.setAttribute('aria-expanded', String(details.open));
     summary.addEventListener('click', function (event) {
       event.preventDefault();
-      setFold(details, !details.open);
+      setFold(details, !isOpening(details));
     });
   });
+
+  // landing on #awards or #more-about-me opens that fold
+  function openHashFold() {
+    var target = location.hash && document.getElementById(location.hash.slice(1));
+    if (target && target.matches('details.fold') && !isOpening(target)) setFold(target, true);
+  }
+  openHashFold();
+  window.addEventListener('hashchange', openHashFold);
 
   // in-page links that point at a fold open it first
   document.querySelectorAll('a[data-open-fold]').forEach(function (link) {
@@ -58,8 +71,8 @@
       if (!target) return;
       event.preventDefault();
       history.pushState(null, '', '#' + target.id);
-      var anim = target.open ? null : setFold(target, true);
-      var go = function () { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
+      var anim = isOpening(target) ? null : setFold(target, true);
+      var go = function () { target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' }); };
       if (anim && anim.finished) anim.finished.then(go).catch(function () {}); else go();
     });
   });
