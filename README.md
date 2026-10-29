@@ -8,6 +8,7 @@ https://michaeltarekegn.com.
 | `index.html` | Home: intro, about, collapsible timeline and awards, selected research, projects |
 | `projects.html` | Full list of research, experience and projects |
 | `resume.pdf` | Resume, linked from the nav and the home page |
+| `headshot.jpg` | Photo in the About Me section and the social preview image |
 | `paper-*.html`, `project-*.html` | Detail pages |
 | `style.css` | All styles, light and dark themes |
 | `site.js` | Theme toggle, animated folds |

@@ -68,6 +68,8 @@ h1 { margin: 0; color: var(--strong); font: 500 clamp(2.1rem, 6vw, 3.4rem)/1.15 
 .content-section { padding: 2.5rem 0 0; }
 .about-section { padding-top: 1.5rem; }
 .section-title { margin: 0 0 1.25rem; color: var(--strong); font: 600 1.1rem/1.45 var(--mono); letter-spacing: -.03em; }
+.about { display: flow-root; }
+.headshot { float: right; width: 8.5rem; height: auto; margin: .3rem 0 .75rem 1.5rem; border: 1px solid var(--line); border-radius: .25rem; }
 .about p { margin: 0 0 1rem; color: var(--secondary); font-size: .88rem; line-height: 1.7; }
 .org { display: inline-flex; align-items: center; gap: .3em; white-space: nowrap; }
 .org img { width: 1.1em; height: 1.1em; object-fit: contain; }
@@ -177,6 +179,7 @@ summary span { order: 2; margin-left: auto; color: var(--muted); font-size: 10px
   .main-nav a { font-size: .78rem; }
   .profile { padding-top: 1.5rem; }
   .about p, .workplaces { font-size: .86rem; }
+  .headshot { width: 6.25rem; margin-left: 1rem; }
   .timeline { margin: 1.25rem 0 0 .15rem; }
   .timeline-item { grid-template-columns: 1fr; gap: .2rem; padding-left: 1.15rem; padding-bottom: 1.6rem; }
   .honors-panel { padding-left: 1.15rem; }
